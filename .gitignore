@@ -1,0 +1,9 @@
+node_modules/
+dist/
+fshs-kit.zip
+tools/test-results/
+tools/playwright-report/
+tools/render/.tmp.html
+.env
+.env.*
+!.env.example
