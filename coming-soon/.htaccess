@@ -1,0 +1,67 @@
+# Page de lancement — Fondation Stark Hold Solutions (hébergement LWS, Apache 2.4)
+# Chaque bloc est protégé par <IfModule> : si un module n'est pas actif, le site reste fonctionnel.
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset utf-8
+
+# ---------------------------------------------------------------------------
+# HTTPS obligatoire et domaine sans « www » (activer d'abord le certificat SSL dans l'espace client LWS)
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://fondationstarkhold.org%{REQUEST_URI} [R=301,L]
+  RewriteCond %{HTTP_HOST} ^www\.fondationstarkhold\.org$ [NC]
+  RewriteRule ^ https://fondationstarkhold.org%{REQUEST_URI} [R=301,L]
+  # Ne jamais servir les fichiers de documentation éventuellement envoyés par erreur.
+  RewriteRule (^|/)README\.md$ - [R=404,L]
+  # Toute URL inconnue renvoie vers la page de lancement (redirection temporaire : les chemins relatifs restent valides).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ / [R=302,L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Types MIME
+# ---------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType text/javascript .js .mjs
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Compression
+# ---------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript image/svg+xml application/manifest+json text/plain
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Cache
+#  - HTML, CSS et JS : revalidés à chaque visite (fichiers légers ; indispensable pour la bascule du 20 novembre).
+#  - Logos, icônes, image OG : 7 jours. Polices : 1 an.
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js|webmanifest)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(svg|png)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Sécurité
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "DENY"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+  # HSTS : uniquement une fois le HTTPS vérifié (sans includeSubDomains pour ne pas casser d'éventuels sous-domaines LWS).
+  Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+</IfModule>

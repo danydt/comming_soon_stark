@@ -1,0 +1,580 @@
+/* Page de lancement — Fondation Stark Hold Solutions.
+   Tokens identiques à ceux du site principal (@theme Tailwind v4). */
+
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('assets/fonts/roboto-slab-latin-800-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('assets/fonts/josefin-sans-latin-300-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/inter-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('assets/fonts/inter-latin-600-normal.woff2') format('woff2');
+}
+
+:root {
+  --brand-red: #c00000;
+  --brand-red-deep: #8b0000;
+  --brand-black: #0c0c0c;
+  --brand-grey: #8a8a8a;
+  --surface: #ffffff;
+  --surface-warm: #f5f3f0;
+  --success: #2e7d32;
+  --warning: #b26a00;
+  /* Gris lisible pour le petit texte (AA ≥ 4,5:1 sur --surface et --surface-warm). */
+  --text-muted: #595959;
+  --line: #e4e0db;
+
+  --font-heading: 'Roboto Slab', Georgia, 'Times New Roman', serif;
+  --font-label: 'Josefin Sans', 'Segoe UI', Arial, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  --gutter: 16px;
+  --radius: 10px;
+  --focus: 0 0 0 3px var(--surface), 0 0 0 6px var(--brand-black);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--brand-black);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 10;
+  padding: 10px 16px;
+  background: var(--brand-black);
+  color: #fff;
+  border-radius: var(--radius);
+}
+.skip-link:focus {
+  top: 8px;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-radius: 6px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* ---------- Libellés (sur-titres) ---------- */
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-label);
+  font-weight: 300;
+  font-size: 0.875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- Barre du haut : langue ---------- */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px var(--gutter) 0;
+}
+.lang {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--text-muted);
+}
+.lang button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  font: 600 0.875rem/1 var(--font-body);
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+}
+.lang button[aria-pressed='true'] {
+  color: var(--brand-red);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.lang button:hover {
+  color: var(--brand-black);
+}
+
+/* ---------- Héros ---------- */
+.hero {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 8px var(--gutter) 48px;
+  text-align: center;
+}
+
+.logo {
+  width: min(168px, 46vw);
+  margin: 0 auto 28px;
+}
+.logo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hero .eyebrow {
+  margin-bottom: 12px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.18em;
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.875rem, 7.4vw, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.hero-date {
+  margin: 12px 0 0;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ---------- Compte à rebours ---------- */
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 560px;
+  margin: 28px auto 0;
+}
+.cd-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 4px 12px;
+  background: var(--surface-warm);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--brand-red);
+}
+.cd-num {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 9vw, 3.25rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  min-width: 2ch;
+  text-align: center;
+}
+.cd-unit {
+  margin-top: 8px;
+  font-family: var(--font-label);
+  font-weight: 300;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.live {
+  margin: 28px auto 0;
+}
+
+.intro {
+  max-width: 600px;
+  margin: 32px auto 0;
+  font-size: 1.0625rem;
+  color: #333;
+  text-wrap: pretty;
+}
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font: 600 1rem/1.25 var(--font-body);
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.btn-primary {
+  background: var(--brand-red);
+  color: #fff;
+  border: 2px solid var(--brand-red);
+}
+.btn-primary:hover {
+  background: var(--brand-red-deep);
+  border-color: var(--brand-red-deep);
+}
+.btn-outline {
+  background: var(--surface);
+  color: var(--brand-black);
+  border: 2px solid var(--line);
+}
+.btn-outline:hover {
+  border-color: var(--brand-black);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ---------- Domaines ---------- */
+.domains {
+  padding: 48px var(--gutter);
+  background: var(--surface-warm);
+  text-align: center;
+}
+.domain-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 1080px;
+  margin: 24px auto 0;
+  padding: 0;
+  list-style: none;
+}
+.domain-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 10px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.domain-list li:last-child {
+  grid-column: 1 / -1;
+}
+.domain-list .icon {
+  width: 36px;
+  height: 36px;
+  stroke-width: 1.75;
+  color: var(--brand-red);
+}
+
+/* ---------- Contact ---------- */
+.contact {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px var(--gutter) 56px;
+  text-align: center;
+}
+.contact:focus {
+  outline: none;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  margin: 24px auto 0;
+}
+.actions .btn {
+  width: 100%;
+}
+.email {
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+.actions .btn {
+  padding-inline: 16px;
+}
+
+.social {
+  margin-top: 40px;
+}
+.social-list {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.social-list a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  color: var(--brand-black);
+}
+.social-list a:hover {
+  border-color: var(--brand-red);
+  color: var(--brand-red);
+}
+
+/* ---------- Pied de page ---------- */
+.footer {
+  padding: 36px var(--gutter) 40px;
+  background: var(--brand-black);
+  color: #e6e6e6;
+  text-align: center;
+  font-size: 0.875rem;
+}
+.footer p,
+.footer address {
+  margin: 0 auto;
+  max-width: 640px;
+  font-style: normal;
+}
+.footer-name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.0625rem;
+  color: #fff;
+}
+.footer .footer-tagline {
+  margin: 6px auto 16px;
+  color: #c4c4c4;
+  font-size: 0.75rem;
+}
+.footer-legal {
+  margin-top: 12px !important;
+  color: #c4c4c4;
+}
+.footer :focus-visible {
+  box-shadow: 0 0 0 3px var(--brand-black), 0 0 0 6px #fff;
+}
+
+/* ---------- Tablette et bureau ---------- */
+@media (min-width: 640px) {
+  :root {
+    --gutter: 32px;
+  }
+  .logo {
+    width: 200px;
+  }
+  .countdown {
+    gap: 16px;
+  }
+  .cd-cell {
+    padding: 20px 8px 16px;
+  }
+  .cd-unit {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+  }
+  .hero .eyebrow {
+    font-size: 0.875rem;
+    letter-spacing: 0.3em;
+  }
+  .actions .btn {
+    padding-inline: 22px;
+  }
+  .domain-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .domain-list li:last-child {
+    grid-column: auto;
+  }
+  .domain-list li:nth-child(4) {
+    grid-column: 1 / 2;
+    justify-self: end;
+  }
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: none;
+  }
+  .actions .btn {
+    width: auto;
+  }
+}
+@media (min-width: 640px) and (max-width: 959px) {
+  /* 3 + 2 centrés */
+  .domain-list {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .domain-list li {
+    grid-column: span 2;
+  }
+  .domain-list li:nth-child(4) {
+    grid-column: 2 / span 2;
+    justify-self: stretch;
+  }
+  .domain-list li:last-child {
+    grid-column: 4 / span 2;
+  }
+}
+@media (min-width: 960px) {
+  .hero {
+    padding-top: 24px;
+    padding-bottom: 64px;
+  }
+  .domains {
+    padding: 64px var(--gutter);
+  }
+  .domain-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .domain-list li:nth-child(4),
+  .domain-list li:last-child {
+    grid-column: auto;
+    justify-self: stretch;
+  }
+  .contact {
+    padding: 64px var(--gutter) 72px;
+  }
+}
+
+/* ---------- Animation d'entrée du logo ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .logo .lg-top,
+  .logo .lg-bot,
+  .logo .lg-fold,
+  .logo .lg-word,
+  .logo .lg-tag {
+    transform-box: fill-box;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Les deux parallélogrammes glissent le long de leur pente… */
+  .logo .lg-top {
+    animation-name: lg-slide-top;
+    animation-duration: 0.8s;
+  }
+  .logo .lg-bot {
+    animation-name: lg-slide-bot;
+    animation-duration: 0.8s;
+    animation-delay: 0.08s;
+  }
+  /* …puis le pli apparaît, déplié depuis la gauche. */
+  .logo .lg-fold {
+    transform-origin: left center;
+    animation-name: lg-fold;
+    animation-duration: 0.45s;
+    animation-delay: 0.75s;
+  }
+  .logo .lg-word,
+  .logo .lg-tag {
+    animation-name: lg-fade;
+    animation-duration: 0.6s;
+    animation-delay: 0.95s;
+  }
+  .logo .lg-tag {
+    animation-delay: 1.1s;
+  }
+}
+@keyframes lg-slide-top {
+  from {
+    opacity: 0;
+    transform: translate(18%, -6%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lg-slide-bot {
+  from {
+    opacity: 0;
+    transform: translate(-18%, 6%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lg-fold {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lg-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

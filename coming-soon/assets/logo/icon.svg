@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-117.5 -20 635 635" role="img" aria-label="StarkHold">
+  <defs>
+    <linearGradient id="si-t" x1="0" y1="312" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A30000"/><stop offset="1" stop-color="#8B0000"/></linearGradient>
+    <linearGradient id="si-tl" x1="0" y1="312" x2="400" y2="150" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C00000"/><stop offset="1" stop-color="#B80000"/></linearGradient>
+    <linearGradient id="si-b" x1="0" y1="595" x2="400" y2="283" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9A0000"/><stop offset="1" stop-color="#8B0000"/></linearGradient>
+    <linearGradient id="si-bl" x1="0" y1="595" x2="400" y2="283" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#C00000"/><stop offset="1" stop-color="#B00000"/></linearGradient>
+    <linearGradient id="si-f" x1="0" y1="300" x2="400" y2="290" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0C0C0C"/><stop offset=".55" stop-color="#0C0C0C"/><stop offset="1" stop-color="#4A4646"/></linearGradient>
+  </defs>
+  <g class="lg-top"><path d="M0 126 L400 0 L400 184 L0 312 Z" fill="url(#si-t)"/><path d="M0 243 C120 232 190 160 400 146 L400 184 L0 312 Z" fill="url(#si-tl)"/></g>
+    <g class="lg-bot"><path d="M0 410 L400 283 L400 467 L0 595 Z" fill="url(#si-b)"/><path d="M0 410 L400 283 L400 355 C300 365 150 440 0 595 Z" fill="url(#si-bl)"/></g>
+    <path class="lg-fold" d="M0 312 L208 246 L400 283 L208 342 Z" fill="url(#si-f)"/>
+</svg>

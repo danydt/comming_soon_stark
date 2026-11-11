@@ -1,0 +1,14 @@
+{
+  "name": "Fondation Stark Hold Solutions",
+  "short_name": "FSHS",
+  "lang": "fr",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#C00000",
+  "icons": [
+    { "src": "assets/logo/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "assets/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
