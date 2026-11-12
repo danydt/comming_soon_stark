@@ -23,7 +23,8 @@
     "migrate:status": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:status",
     "migrate:prod": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_MIGRATING=1 NODE_ENV=production payload migrate",
     "seed:admin": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed-admin.ts",
-    "check:supabase": "node --env-file-if-exists=.env --experimental-strip-types src/scripts/check-supabase.ts"
+    "check:supabase": "node --env-file-if-exists=.env --experimental-strip-types src/scripts/check-supabase.ts",
+    "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed/index.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.93.0",
