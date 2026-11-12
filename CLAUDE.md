@@ -7,7 +7,7 @@ Site bilingue FR/EN d'une ASBL congolaise (RDC). Brief complet : `PROMPT-CLAUDE-
 | Phase | Objet | État |
 |---|---|---|
 | 0 | Page de lancement `coming-soon/` (LWS) | **Validée** le 12/11/2026 |
-| 1 | Mise en place Next.js + Payload + Supabase | À faire |
+| 1 | Mise en place Next.js + Payload + Supabase (`web/`) | En cours |
 | 2 | Modèle de contenu et seed | À faire |
 | 3 | Front-end | À faire |
 | 4 | Conversion (rappel, WhatsApp) | À faire |
@@ -16,7 +16,7 @@ Site bilingue FR/EN d'une ASBL congolaise (RDC). Brief complet : `PROMPT-CLAUDE-
 ## Hébergement
 
 - **Page de lancement** (`coming-soon/`) : déposée **à la main** dans le gestionnaire de fichiers **LWS** (Apache). Pas sur Vercel. Configuration serveur dans `.htaccess`.
-- **Site principal** (phases 1 à 5) : **Vercel** (application) + **Supabase** (Postgres via le pooler, Storage S3). Bascule du domaine le 20/11/2026 : seuls A et CNAME `www` changent, **jamais les MX**. Procédure dans `coming-soon/README.md`.
+- **Site principal** (phases 1 à 5, dossier `web/`) : **Vercel** (Root Directory = `web`) + **un seul projet Supabase** (Postgres via le pooler, Storage S3). Données de test pendant le dev, remise à zéro au passage en prod (phase 5). Bascule du domaine le 20/11/2026 : seuls A et CNAME `www` changent, **jamais les MX**. Procédure dans `coming-soon/README.md`.
 
 ## Structure
 
@@ -27,10 +27,20 @@ brand/                     logo source JPEG, svg/ (logos vectorisés), png/ (fav
 photos/                    photos de l'hôpital (sources 1280×960)
 coming-soon/               page de lancement statique (HTML/CSS/JS en scripts classiques, aucune dépendance)
 tools/                     outillage de dev (jamais déployé) : logo, polices, rendus PNG, tests Playwright
+web/                       site principal Next.js 16 + Payload 3 (voir web/README.md)
+  src/app/(frontend)/[locale]/  pages publiques /fr, /en
+  src/app/(payload)/            admin (/admin) et API Payload
+  src/access/ collections/ lib/ i18n/ scripts/ migrations/ components/{ui,site,admin}
+  src/proxy.ts                  redirection / → /fr|/en (Next 16 : ex-middleware)
+  messages/{fr,en}.json         textes d'interface next-intl
 dist/                      archives générées (ignoré par git)
 ```
 
-## Commandes (depuis `tools/`)
+## Commandes du site (depuis `web/`)
+
+`pnpm dev` · `pnpm build` · `pnpm lint` · `pnpm format` · `pnpm typecheck` · `pnpm test:unit` (Vitest) · `pnpm test:e2e` (Playwright, .env requis) · `pnpm generate:types` · `pnpm generate:importmap` · `pnpm migrate:create <nom>` · `pnpm migrate:prod` (pooler session 5432) · `pnpm seed:admin` · `pnpm check:supabase`. Détails : `web/README.md`.
+
+## Commandes de la page de lancement (depuis `tools/`)
 
 | Commande | Effet |
 |---|---|
@@ -76,3 +86,11 @@ Polices : Roboto Slab 800 (titres), Josefin Sans 300 en capitales et `letter-spa
 - **D8 — pnpm 12** est installé globalement (corepack absent de Node 26).
 - **D9 — Scripts classiques sur la page de lancement.** Les ES modules sont bloqués par Chrome quand `index.html` est ouvert directement (`file://`) : le compte à rebours et le switch FR/EN ne tournaient pas. `i18n.js` expose `window.FSHS_I18N` et `main.js` est un IIFE, chargés tous deux en `defer`. Ça marche en ligne comme en local. Écart assumé avec le brief (« ES modules »).
 - **D10 — Charte et switch FR/EN validés par le client** sur la page de lancement : les reprendre tels quels pour le site principal (tokens, polices, sélecteur FR | EN souligné en rouge, `aria-pressed`).
+- **D11 — Versions du site.** Next.js **16.4.6** et Payload **3.93.0**, dont le peer accepte `next >=16.3.3 <17`, vérifié sur npm le 12/11/2026. React 19.2, Node ≥ 24.22 (exigé par Payload). Le squelette vient de `create-payload-app` (template blank), nettoyé : pas de Docker.
+- **D12 — `proxy.ts`.** Next 16 renomme `middleware.ts` en `proxy.ts`, et next-intl 4 le prend en charge (doc vérifiée). Le matcher exclut `api`, `admin`, `_next`, `_vercel` et les fichiers.
+- **D13 — Un seul Supabase.** `push` actif en dev seulement (`NODE_ENV=development`, désactivable avec `PAYLOAD_DB_PUSH=false`). Pas de `payload migrate` dans le build Vercel avant la phase 5. En phase 5 : remise à zéro, migration initiale, `migrate:prod` (pooler session 5432), puis seed réel.
+- **D14 — Schéma `payload`.** `schemaName: 'payload'` est marqué « expérimental » dans la doc Payload. PostgREST n'expose que les schémas listés dans *Exposed schemas* (`public`, `graphql_public`). La vérification se fait avec `pnpm check:supabase`, qui attend PGRST106 avec la clé anon.
+- **D15 — Médias.** Supabase Storage via S3 (`forcePathStyle`), bucket public `media`. Les URLs publiques Supabase sont générées par `generateFileURL` et `disablePayloadAccessControl`, et servies via `next/image` (`remotePatterns *.supabase.co`). Envois côté serveur limités à 4,5 Mo par Vercel. Sans `S3_ENDPOINT`, les fichiers vont sur le disque local, en dev uniquement.
+- **D16 — E-mail.** `EMAIL_PROVIDER` vaut resend, smtp ou console. À défaut, le choix est automatique selon `RESEND_API_KEY` ou `SMTP_HOST`, sinon console (logs Payload).
+- **D17 — Sélecteur de langue du site.** Même rendu que la page de lancement (D10), mais avec des **liens** vers la page équivalente (`aria-current`), et non des boutons `aria-pressed`, car on change d'URL. Le cookie `NEXT_LOCALE` mémorise le choix.
+- **D18 — Connexion admin.** `maxLoginAttempts: 5` et `lockTime: 15 min` sont posés dès la phase 1 (exigence de la phase 5). Admin Payload en français uniquement (`supportedLanguages: { fr }`).
