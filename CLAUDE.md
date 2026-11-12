@@ -6,7 +6,7 @@ Site bilingue FR/EN d'une ASBL congolaise (RDC). Brief complet : `PROMPT-CLAUDE-
 
 | Phase | Objet | État |
 |---|---|---|
-| 0 | Page de lancement `coming-soon/` (LWS) | Livrée, en attente de validation |
+| 0 | Page de lancement `coming-soon/` (LWS) | **Validée** le 12/11/2026 |
 | 1 | Mise en place Next.js + Payload + Supabase | À faire |
 | 2 | Modèle de contenu et seed | À faire |
 | 3 | Front-end | À faire |
@@ -25,7 +25,7 @@ docs/contenu-source.md     SEULE source de vérité pour le contenu
 docs/captures/phase-N/     captures et rapports Lighthouse de chaque phase
 brand/                     logo source JPEG, svg/ (logos vectorisés), png/ (favicons, OG), compare-logo.png
 photos/                    photos de l'hôpital (sources 1280×960)
-coming-soon/               page de lancement statique (HTML/CSS/JS, aucune dépendance)
+coming-soon/               page de lancement statique (HTML/CSS/JS en scripts classiques, aucune dépendance)
 tools/                     outillage de dev (jamais déployé) : logo, polices, rendus PNG, tests Playwright
 dist/                      archives générées (ignoré par git)
 ```
@@ -74,3 +74,5 @@ Polices : Roboto Slab 800 (titres), Josefin Sans 300 en capitales et `letter-spa
 - **D6 — Lighthouse en local.** La machine de dev a un `benchmarkIndex` d'environ 250. Le ralentissement par défaut (×4) simulerait alors un appareil 4 fois plus lent qu'un mobile d'entrée de gamme et donnerait un score de 74 qui ne reflète pas la page. On utilise donc `cpuSlowdownMultiplier=1`, conformément à la doc Lighthouse pour les machines lentes. Mesure de référence après mise en ligne : PageSpeed Insights.
 - **D7 — DNS Vercel.** Les valeurs A et CNAME sont propres à chaque projet : les relever dans Vercel → Settings → Domains (doc vérifiée le 11/11/2026).
 - **D8 — pnpm 12** est installé globalement (corepack absent de Node 26).
+- **D9 — Scripts classiques sur la page de lancement.** Les ES modules sont bloqués par Chrome quand `index.html` est ouvert directement (`file://`) : le compte à rebours et le switch FR/EN ne tournaient pas. `i18n.js` expose `window.FSHS_I18N` et `main.js` est un IIFE, chargés tous deux en `defer`. Ça marche en ligne comme en local. Écart assumé avec le brief (« ES modules »).
+- **D10 — Charte et switch FR/EN validés par le client** sur la page de lancement : les reprendre tels quels pour le site principal (tokens, polices, sélecteur FR | EN souligné en rouge, `aria-pressed`).
