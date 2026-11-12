@@ -42,3 +42,13 @@ export const publishedOrStaff: Access = ({ req }) => {
   if (hasRole(req.user, 'admin', 'editor')) return true
   return { _status: { equals: 'published' } }
 }
+
+/**
+ * Montant d'un projet : visible du public seulement si « Afficher le montant » est coché.
+ * L'équipe le voit toujours. Appliqué au niveau du champ : l'API publique ne renvoie rien sinon.
+ */
+export const amountVisible: FieldAccess = ({ req, doc }) => {
+  if (hasRole(req.user, 'admin', 'editor')) return true
+  const amount = (doc as { amount?: { display?: unknown } } | undefined)?.amount
+  return amount?.display === true
+}
