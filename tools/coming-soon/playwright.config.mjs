@@ -7,7 +7,7 @@ export default defineConfig({
   reporter: [['list']],
   use: { baseURL: 'http://localhost:4173', reducedMotion: 'reduce' },
   webServer: {
-    command: 'node coming-soon/serve.mjs',
+    command: 'node serve.mjs',
     url: 'http://localhost:4173',
     reuseExistingServer: true,
   },
