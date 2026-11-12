@@ -11,7 +11,7 @@ export const Media: CollectionConfig = {
   slug: 'media',
   labels: { singular: 'Média', plural: 'Médias' },
   admin: {
-    group: 'Contenu',
+    group: 'Médias',
     description:
       'Images jusqu’à 4 Mo (limite des envois sur Vercel). Les tailles d’affichage sont générées automatiquement.',
   },

@@ -7,8 +7,15 @@ import { fr } from '@payloadcms/translations/languages/fr'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
+import { Brands, Products } from './collections/Catalog'
 import { Media } from './collections/Media'
+import { Partners, Team } from './collections/Organisation'
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
+import { Projects } from './collections/Projects'
+import { Sectors } from './collections/Sectors'
 import { Users } from './collections/Users'
+import { Footer, Header, SiteSettings } from './globals'
 import { emailAdapter } from './lib/email'
 import { databaseURI, readEnv, requireEnv, serverURL } from './lib/env'
 import { storagePlugins } from './lib/storage'
@@ -51,7 +58,8 @@ export default buildConfig({
     fallback: true,
   },
 
-  collections: [Users, Media],
+  collections: [Pages, Posts, Sectors, Projects, Products, Brands, Team, Partners, Media, Users],
+  globals: [SiteSettings, Header, Footer],
   editor: lexicalEditor(),
 
   db: postgresAdapter({
