@@ -1,10 +1,14 @@
 // Textes de la page de lancement (FR par défaut, EN).
+// Script classique (pas de module) pour fonctionner aussi en ouvrant index.html directement (file://).
 // Les faits (nom, adresse, domaines) viennent de docs/contenu-source.md : ne rien ajouter qui n'y figure pas.
 
-export const LOCALES = ['fr', 'en'];
-export const DEFAULT_LOCALE = 'fr';
+(function () {
+  'use strict';
 
-export const messages = {
+const LOCALES = ['fr', 'en'];
+const DEFAULT_LOCALE = 'fr';
+
+const messages = {
   fr: {
     'meta.title': 'Fondation Stark Hold Solutions — Notre nouveau site arrive',
     'meta.description':
@@ -91,16 +95,19 @@ export const messages = {
 const FRENCH_FAMILY = ['fr', 'ln', 'sw', 'kg', 'lu'];
 
 /** Choisit la langue : français si le navigateur est en français (ou langue de RDC) ou inconnu, sinon anglais. */
-export function detectLocale(languages) {
+function detectLocale(languages) {
   const first = (languages && languages[0]) || '';
   if (!first) return DEFAULT_LOCALE;
   const base = first.toLowerCase().split('-')[0];
   return FRENCH_FAMILY.includes(base) ? 'fr' : 'en';
 }
 
-export function t(locale, key, vars) {
+function t(locale, key, vars) {
   const dict = messages[locale] || messages[DEFAULT_LOCALE];
   let s = dict[key] ?? messages[DEFAULT_LOCALE][key] ?? key;
   if (vars) for (const [k, v] of Object.entries(vars)) s = s.replace(`{${k}}`, String(v));
   return s;
 }
+
+  window.FSHS_I18N = { LOCALES, DEFAULT_LOCALE, messages, detectLocale, t };
+})();

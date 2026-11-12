@@ -1,9 +1,12 @@
-import { LOCALES, DEFAULT_LOCALE, detectLocale, t } from './i18n.js';
+// Script classique (pas de module) : fonctionne en ligne ET en ouvrant index.html directement (file://).
+(function () {
+'use strict';
+const { LOCALES, DEFAULT_LOCALE, detectLocale, t } = window.FSHS_I18N;
 
 // ---------------------------------------------------------------------------
 // Configuration — à modifier ici sans toucher au reste du code.
 // ---------------------------------------------------------------------------
-export const CONFIG = {
+const CONFIG = {
   /** Ouverture : 20 novembre 2026, 00:00 heure de Kinshasa (UTC+01:00). Instant absolu, indépendant du fuseau du visiteur. */
   launchAt: '2026-11-20T00:00:00+01:00',
   /** Numéro au format international, sans espaces ni « + » (pour wa.me). */
@@ -37,7 +40,7 @@ const offset = clockOffset();
 const now = () => Date.now() + offset;
 
 /** Décompose une durée (ms) en jours, heures, minutes, secondes. */
-export function splitDuration(ms) {
+function splitDuration(ms) {
   const total = Math.max(0, Math.floor(ms / 1000));
   return {
     d: Math.floor(total / 86400),
@@ -186,3 +189,4 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') tick();
 });
 document.documentElement.classList.add('js');
+})();
