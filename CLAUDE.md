@@ -8,7 +8,7 @@ Site bilingue FR/EN d'une ASBL congolaise (RDC). Brief complet : `PROMPT-CLAUDE-
 |---|---|---|
 | 0 | Page de lancement `coming-soon/` (LWS) | **Validée** le 12/11/2026 |
 | 1 | Mise en place Next.js + Payload + Supabase (`web/`) | **Validée** le 12/11/2026 |
-| 2 | Modèle de contenu et seed | En cours (en attente de validation) |
+| 2 | Modèle de contenu et seed | **Validée** le 12/11/2026 |
 | 3 | Front-end | À faire |
 | 4 | Conversion (rappel, WhatsApp) | À faire |
 | 5 | SEO, performance, mise en production | À faire |
