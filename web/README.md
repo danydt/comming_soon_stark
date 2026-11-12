@@ -26,6 +26,7 @@ pnpm install
 cp .env.example .env      # puis remplir .env (voir sections 2 et 3)
 pnpm dev                  # http://localhost:3000  → redirige vers /fr ou /en
 pnpm seed:admin           # crée le premier administrateur (ADMIN_EMAIL / ADMIN_PASSWORD)
+pnpm seed                 # charge le contenu initial FR/EN (idempotent, ~5 min)
 ```
 
 L'administration se trouve sur http://localhost:3000/admin.
@@ -124,6 +125,7 @@ Le site n'utilise qu'une seule base. Son mode de gestion change au passage en pr
 | `pnpm migrate:create <nom>`          | Crée une migration                                                       |
 | `pnpm migrate` / `pnpm migrate:prod` | Applique les migrations (connexion normale / pooler en mode session)     |
 | `pnpm seed:admin`                    | Crée ou promeut le premier administrateur (idempotent)                   |
+| `pnpm seed`                          | Contenu initial FR/EN depuis `docs/contenu-source.md` (idempotent)       |
 | `pnpm check:supabase`                | Vérifie que le schéma `payload` n'est pas exposé par l'API REST Supabase |
 
 ## Structure

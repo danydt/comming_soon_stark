@@ -8,7 +8,7 @@ Site bilingue FR/EN d'une ASBL congolaise (RDC). Brief complet : `PROMPT-CLAUDE-
 |---|---|---|
 | 0 | Page de lancement `coming-soon/` (LWS) | **Validée** le 12/11/2026 |
 | 1 | Mise en place Next.js + Payload + Supabase (`web/`) | **Validée** le 12/11/2026 |
-| 2 | Modèle de contenu et seed | À faire |
+| 2 | Modèle de contenu et seed | En cours (en attente de validation) |
 | 3 | Front-end | À faire |
 | 4 | Conversion (rappel, WhatsApp) | À faire |
 | 5 | SEO, performance, mise en production | À faire |
@@ -38,7 +38,7 @@ dist/                      archives générées (ignoré par git)
 
 ## Commandes du site (depuis `web/`)
 
-`pnpm dev` · `pnpm build` · `pnpm lint` · `pnpm format` · `pnpm typecheck` · `pnpm test:unit` (Vitest) · `pnpm test:e2e` (Playwright, .env requis) · `pnpm generate:types` · `pnpm generate:importmap` · `pnpm migrate:create <nom>` · `pnpm migrate:prod` (pooler session 5432) · `pnpm seed:admin` · `pnpm check:supabase`. Détails : `web/README.md`.
+`pnpm dev` · `pnpm build` · `pnpm lint` · `pnpm format` · `pnpm typecheck` · `pnpm test:unit` (Vitest) · `pnpm test:e2e` (Playwright, .env requis) · `pnpm generate:types` · `pnpm generate:importmap` · `pnpm migrate:create <nom>` · `pnpm migrate:prod` (pooler session 5432) · `pnpm seed:admin` · `pnpm seed` (contenu initial, idempotent, ~5 min) · `pnpm check:supabase`. Détails : `web/README.md`.
 
 ## Commandes de la page de lancement (depuis `tools/`)
 
@@ -95,3 +95,7 @@ Polices : Roboto Slab 800 (titres), Josefin Sans 300 en capitales et `letter-spa
 - **D17 — Sélecteur de langue du site.** Même rendu que la page de lancement (D10), mais avec des **liens** vers la page équivalente (`aria-current`), et non des boutons `aria-pressed`, car on change d'URL. Le cookie `NEXT_LOCALE` mémorise le choix.
 - **D18 — Connexion admin.** `maxLoginAttempts: 5` et `lockTime: 15 min` sont posés dès la phase 1 (exigence de la phase 5). Admin Payload en français uniquement (`supportedLanguages: { fr }`).
 - **D19 — Projet Supabase.** Région eu-west-1 (Irlande). Pooler `aws-1-eu-west-1.pooler.supabase.com` (le préfixe `aws-0` ne connaît pas ce projet). Mot de passe URL-encodé dans les `DATABASE_URI*`. Bucket public `stark_hold` (`S3_BUCKET`). Le CDN Supabase garde une image supprimée quelques minutes en cache.
+- **D20 — Revalidation (Next 16).** Hooks `afterChange`/`afterDelete` → `revalidateTag(tag, 'max')` (second argument obligatoire en Next 16, doc locale `node_modules/next/dist/docs`). Étiquettes : `<collection>:<locale>`, `<collection>:<locale>:<slug>`, `global:<slug>:<locale>` (`src/lib/revalidate.ts`), à poser côté front en phase 3. Une modification en FR invalide aussi l'EN (langue de repli). Un brouillon ne déclenche rien ; la dépublication si. Désactivé pendant le seed (`context.disableRevalidate`).
+- **D21 — Slugs.** `slugField` de Payload (marqué « expérimental ») avec `localized: true`, notre `slugify` sans accents et l'index unique désactivé : l'unicité est vérifiée **par langue** par validation (`src/fields/slug.ts`), ce qui autorise `contact` en FR et en EN. Payload ne valide pas les brouillons : deux brouillons peuvent partager un slug, mais la publication du second est refusée.
+- **D22 — Montants des projets.** Groupe `amount` protégé par un accès en lecture au niveau du champ (`amountVisible`) : l'API publique ne renvoie le montant que si « Afficher le montant » est coché. Montants des projets santé 6 à 11 affichés (validé par le client) ; hors périmètre et Fistula Foundation : non affichés / absents.
+- **D23 — Seed.** `pnpm seed` (`src/scripts/seed`) : clé de rapprochement = slug FR (médias : nom de fichier), écriture FR puis EN en reprenant les `id` des lignes de tableaux et de blocs (sinon l'écriture EN recréerait les lignes et viderait le FR). `payload run` quitte au chargement du module : le seed attend `main()` au niveau du module. Provinces des projets santé déduites des lieux, à confirmer par le client.
