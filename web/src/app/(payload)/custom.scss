@@ -1,0 +1,13 @@
+// Personnalisation légère de l'administration Payload aux couleurs de la charte.
+// Le rouge reste un accent (boutons principaux, focus), pas un fond.
+:root {
+  --theme-success-500: #2e7d32;
+  --theme-warning-500: #b26a00;
+}
+
+.btn--style-primary {
+  --bg-color: #c00000;
+  --hover-bg: #8b0000;
+  --color: #ffffff;
+  --hover-color: #ffffff;
+}
