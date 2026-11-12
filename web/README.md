@@ -40,14 +40,17 @@ Le site utilise **un seul projet Supabase**. Pendant le développement, la base 
 2. Récupérez les **URLs de connexion** avec le bouton **Connect**, en haut du tableau de bord, puis l'onglet **Connection string**.
    - **Transaction pooler** (port **6543**) → `DATABASE_URI`. C'est la connexion utilisée par le site sur Vercel.
    - **Session pooler** (port **5432**) → `DATABASE_URI_MIGRATIONS`. Elle sert aux migrations.
-   - Remplacez `[YOUR-PASSWORD]` par le mot de passe de la base.
+   - Remplacez `[YOUR-PASSWORD]` par le mot de passe de la base, **sans les crochets**.
+   - Si le mot de passe contient des caractères spéciaux, encodez-les : `/` → `%2F`, `@` → `%40`, `:` → `%3A`, `#` → `%23`, `?` → `%3F`, `%` → `%25`. Sinon l'URL est illisible (`Invalid URL`). Plus simple : générer un mot de passe uniquement alphanumérique.
+   - Le préfixe de l'hôte du pooler (`aws-0-…` ou `aws-1-…`) dépend du projet : copiez-le tel quel depuis **Connect**, ne le devinez pas.
    - Pourquoi passer par le pooler : la connexion directe de Supabase est en IPv6, ce que les fonctions serverless de Vercel ne supportent pas.
 3. Récupérez la **clé API** dans **Project Settings → API**.
    - `Project URL` → `SUPABASE_URL`.
    - Clé `anon` `public` → `SUPABASE_ANON_KEY`. Elle sert seulement à la vérification `pnpm check:supabase`.
    - Ne copiez **jamais** la clé `service_role` dans ce projet.
 4. Créez le **bucket des médias** dans **Storage → New bucket**.
-   - Nom : `media`, à cocher **Public bucket**.
+   - Nom : `media` par défaut, à cocher **Public bucket**. Un autre nom est possible (ici `stark_hold`) : le reporter dans `S3_BUCKET`.
+   - Un bucket **privé** accepte les envois mais son URL publique répond `Bucket not found` (404) : les images ne s'afficheraient pas sur le site.
 5. Générez les **clés S3** dans **Storage → Settings → S3 Connection**.
    - Notez l'`Endpoint` (→ `S3_ENDPOINT`) et la `Region` (→ `S3_REGION`).
    - Sous **S3 Access Keys**, cliquez sur **New access key**, puis notez `Access key ID` (→ `S3_ACCESS_KEY_ID`) et `Secret access key` (→ `S3_SECRET_ACCESS_KEY`).
