@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+/*
+ * Charte FSHS — mêmes valeurs que coming-soon/styles.css (validée par le client, décision D10).
+ * Les polices sont fournies par next/font (variables posées sur <html> dans le layout).
+ */
+@theme {
+  --color-brand-red: #c00000;
+  --color-brand-red-deep: #8b0000;
+  --color-brand-black: #0c0c0c;
+  --color-brand-grey: #8a8a8a;
+  --color-surface: #ffffff;
+  --color-surface-warm: #f5f3f0;
+  --color-success: #2e7d32;
+  --color-warning: #b26a00;
+  --color-text-muted: #595959;
+  --color-line: #e4e0db;
+
+  --font-heading: var(--font-roboto-slab), Georgia, 'Times New Roman', serif;
+  --font-label: var(--font-josefin-sans), 'Segoe UI', Arial, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  --radius-card: 10px;
+  --tracking-label: 0.3em;
+}
+
+/* Jetons shadcn/ui alignés sur la charte. */
+:root {
+  --background: var(--color-surface);
+  --foreground: var(--color-brand-black);
+  --primary: var(--color-brand-red);
+  --primary-foreground: #ffffff;
+  --muted: var(--color-surface-warm);
+  --muted-foreground: var(--color-text-muted);
+  --border: var(--color-line);
+  --ring: var(--color-brand-black);
+  --radius: 10px;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 3px var(--color-surface),
+      0 0 0 6px var(--color-brand-black);
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* Sur-titre / étiquette : Josefin Sans 300, capitales, espacement large. */
+  .eyebrow {
+    font-family: var(--font-label);
+    font-weight: 300;
+    font-size: 0.875rem;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

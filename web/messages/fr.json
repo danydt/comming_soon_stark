@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "siteName": "Fondation Stark Hold Solutions",
+    "description": "La Fondation Stark Hold Solutions (FSHS), ASBL congolaise : santé maternelle, agriculture, élevage, pêche et pisciculture."
+  },
+  "common": {
+    "skipToContent": "Aller au contenu",
+    "tagline": "Aller plus loin ensemble",
+    "languageLabel": "Langue du site"
+  },
+  "home": {
+    "eyebrow": "Fondation Stark Hold Solutions",
+    "title": "Aller plus loin ensemble",
+    "intro": "ASBL congolaise à vocation nationale, la Fondation Stark Hold Solutions mène des actions d’urgence et de développement durable, et assiste les communautés et les populations vulnérables.",
+    "wip": "Site en cours de construction."
+  },
+  "footer": {
+    "legalName": "Fondation Stark Hold Solutions ASBL",
+    "address": "Siège : N° 70, Av. de la Gombe, Q. Batetela, Commune de la Gombe, Kinshasa, RD Congo",
+    "legalForm": "Association sans but lucratif (ASBL)",
+    "copyright": "© {year} Fondation Stark Hold Solutions"
+  }
+}
