@@ -88,3 +88,76 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Texte riche (Lexical) : rythme de lecture sobre, liens soulignés, listes à puces rouges. */
+@layer components {
+  .prose-fshs {
+    max-width: 68ch;
+    font-size: 1.0625rem;
+    color: #262626;
+  }
+  .prose-fshs > * + * {
+    margin-top: 1em;
+  }
+  .prose-fshs h2,
+  .prose-fshs h3,
+  .prose-fshs h4 {
+    margin-top: 1.8em;
+    color: var(--color-brand-black);
+  }
+  .prose-fshs h2 {
+    font-size: 1.5rem;
+  }
+  .prose-fshs h3 {
+    font-size: 1.25rem;
+  }
+  .prose-fshs h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.0625rem;
+  }
+  .prose-fshs a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-brand-red);
+    text-underline-offset: 3px;
+  }
+  .prose-fshs a:hover {
+    color: var(--color-brand-red-deep);
+  }
+  .prose-fshs strong {
+    font-weight: 600;
+    color: var(--color-brand-black);
+  }
+  .prose-fshs ul,
+  .prose-fshs ol {
+    padding-left: 1.4em;
+  }
+  .prose-fshs ul {
+    list-style: disc;
+  }
+  .prose-fshs ol {
+    list-style: decimal;
+  }
+  .prose-fshs li + li {
+    margin-top: 0.4em;
+  }
+  .prose-fshs li::marker {
+    color: var(--color-brand-red);
+  }
+  .prose-fshs blockquote {
+    border-left: 3px solid var(--color-brand-red);
+    padding-left: 1em;
+    font-style: italic;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -6,18 +6,137 @@
   "common": {
     "skipToContent": "Aller au contenu",
     "tagline": "Aller plus loin ensemble",
-    "languageLabel": "Langue du site"
-  },
-  "home": {
-    "eyebrow": "Fondation Stark Hold Solutions",
-    "title": "Aller plus loin ensemble",
-    "intro": "ASBL congolaise à vocation nationale, la Fondation Stark Hold Solutions mène des actions d’urgence et de développement durable, et assiste les communautés et les populations vulnérables.",
-    "wip": "Site en cours de construction."
+    "languageLabel": "Langue du site",
+    "home": "Accueil",
+    "homeLink": "Fondation Stark Hold Solutions — accueil",
+    "mainNav": "Navigation principale",
+    "menu": "Menu",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "breadcrumb": "Fil d’Ariane",
+    "readMore": "En savoir plus",
+    "seeAll": "Tout voir",
+    "newTab": "(nouvel onglet)",
+    "all": "Tous",
+    "filters": "Filtres",
+    "resetFilters": "Effacer les filtres",
+    "noResults": "Aucun résultat pour ces filtres.",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "pageOf": "Page {page} sur {total}",
+    "pagination": "Pagination",
+    "contactUs": "Nous contacter"
   },
   "footer": {
-    "legalName": "Fondation Stark Hold Solutions ASBL",
-    "address": "Siège : N° 70, Av. de la Gombe, Q. Batetela, Commune de la Gombe, Kinshasa, RD Congo",
-    "legalForm": "Association sans but lucratif (ASBL)",
+    "contact": "Contact",
+    "headOffice": "Siège",
+    "branchOffice": "Antenne",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "follow": "Suivez-nous",
     "copyright": "© {year} Fondation Stark Hold Solutions"
+  },
+  "sectors": {
+    "title": "Nos secteurs",
+    "intro": "Les domaines dans lesquels la fondation intervient.",
+    "keyPoints": "Points clés",
+    "figures": "En chiffres",
+    "methodology": "Notre méthode",
+    "step": "Étape {n}",
+    "team": "L’équipe",
+    "projects": "Réalisations dans ce secteur",
+    "empty": "Aucun secteur publié pour le moment."
+  },
+  "projects": {
+    "title": "Nos réalisations",
+    "intro": "Les interventions menées par la fondation et ses partenaires.",
+    "sector": "Secteur",
+    "province": "Province",
+    "location": "Lieu",
+    "funders": "Financement",
+    "partners": "Partenaires",
+    "team": "Équipe mobilisée",
+    "amount": "Montant",
+    "period": "Période",
+    "ongoing": "en cours",
+    "featured": "Projet phare",
+    "cases": "{count, plural, one {# cas pris en charge} other {# cas pris en charge}}",
+    "beneficiaries": "{count, plural, one {# bénéficiaire} other {# bénéficiaires}}",
+    "sensitized": "{count, plural, one {# personne sensibilisée} other {# personnes sensibilisées}}",
+    "gallery": "Galerie",
+    "seeProject": "Voir le projet",
+    "empty": "Aucune réalisation publiée pour le moment.",
+    "casesLabel": "cas pris en charge",
+    "results": "Résultats",
+    "count": "{count, plural, =0 {Aucune réalisation} one {# réalisation} other {# réalisations}}"
+  },
+  "products": {
+    "title": "Nos produits",
+    "intro": "Aliments pour poissons, équipements et intrants pour la pisciculture. Pas de vente en ligne : demandez un devis, nous vous rappelons.",
+    "category": "Catégorie",
+    "brand": "Marque",
+    "categories": {
+      "fish-feed": "Aliments pour poissons",
+      "equipment": "Équipements",
+      "inputs": "Intrants"
+    },
+    "availability": {
+      "available": "Disponible",
+      "on-order": "Sur commande",
+      "unavailable": "Indisponible"
+    },
+    "specs": "Caractéristiques",
+    "requestQuote": "Demander un devis",
+    "website": "Site de la marque",
+    "empty": "Le catalogue sera bientôt disponible. Contactez-nous pour toute demande d’aliments, d’équipements ou d’intrants piscicoles.",
+    "count": "{count, plural, =0 {Aucun produit} one {# produit} other {# produits}}",
+    "back": "Tout le catalogue",
+    "quoteIntro": "Pas de vente en ligne : indiquez-nous vos besoins, nous vous rappelons avec un devis."
+  },
+  "posts": {
+    "title": "Actualités",
+    "intro": "Les dernières nouvelles de la fondation.",
+    "latest": "Dernières actualités",
+    "by": "Par {author}",
+    "categories": {
+      "news": "Actualité",
+      "field": "Sur le terrain",
+      "press": "Communiqué",
+      "event": "Événement"
+    },
+    "empty": "Aucune actualité publiée pour le moment.",
+    "back": "Toutes les actualités",
+    "published": "Publié le {date}"
+  },
+  "team": {
+    "initials": "Initiales de {name}",
+    "training": "Formation",
+    "experience": "Expérience"
+  },
+  "partners": {
+    "types": {
+      "funder": "Bailleur",
+      "hospital": "Hôpital",
+      "partner": "Partenaire"
+    }
+  },
+  "about": {
+    "mapTitle": "Zones d’intervention",
+    "mapIntro": "Provinces dans lesquelles la fondation intervient.",
+    "mapLegendActive": "Province d’intervention",
+    "mapLegendOther": "Autre province",
+    "mapSource": "Contours : geoBoundaries, d’après OpenStreetMap (© contributeurs OpenStreetMap, licence ODbL), simplifiés."
+  },
+  "contact": {
+    "details": "Coordonnées",
+    "whatsapp": "Écrire sur WhatsApp",
+    "map": "Voir sur OpenStreetMap",
+    "formTitle": "Être rappelé",
+    "formSoon": "Le formulaire de rappel arrive bientôt. En attendant, appelez-nous ou écrivez-nous sur WhatsApp."
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "La page demandée n’existe pas ou a été déplacée.",
+    "back": "Retour à l’accueil"
   }
 }

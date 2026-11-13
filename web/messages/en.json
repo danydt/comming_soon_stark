@@ -6,18 +6,137 @@
   "common": {
     "skipToContent": "Skip to content",
     "tagline": "Go further together",
-    "languageLabel": "Website language"
-  },
-  "home": {
-    "eyebrow": "Fondation Stark Hold Solutions",
-    "title": "Go further together",
-    "intro": "A Congolese non-profit working nationwide, Fondation Stark Hold Solutions carries out emergency and sustainable development work and supports vulnerable communities and people.",
-    "wip": "Website under construction."
+    "languageLabel": "Site language",
+    "home": "Home",
+    "homeLink": "Fondation Stark Hold Solutions — home",
+    "mainNav": "Main navigation",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "breadcrumb": "Breadcrumb",
+    "readMore": "Learn more",
+    "seeAll": "See all",
+    "newTab": "(opens in a new tab)",
+    "all": "All",
+    "filters": "Filters",
+    "resetFilters": "Clear filters",
+    "noResults": "No results for these filters.",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}",
+    "pagination": "Pagination",
+    "contactUs": "Contact us"
   },
   "footer": {
-    "legalName": "Fondation Stark Hold Solutions ASBL",
-    "address": "Head office: No. 70, Av. de la Gombe, Q. Batetela, Commune de la Gombe, Kinshasa, DR Congo",
-    "legalForm": "Non-profit association (ASBL)",
+    "contact": "Contact",
+    "headOffice": "Head office",
+    "branchOffice": "Branch office",
+    "phone": "Phone",
+    "email": "Email",
+    "follow": "Follow us",
     "copyright": "© {year} Fondation Stark Hold Solutions"
+  },
+  "sectors": {
+    "title": "Our sectors",
+    "intro": "The areas in which the foundation works.",
+    "keyPoints": "Key points",
+    "figures": "In figures",
+    "methodology": "Our approach",
+    "step": "Step {n}",
+    "team": "The team",
+    "projects": "Work in this sector",
+    "empty": "No sectors published yet."
+  },
+  "projects": {
+    "title": "Our work",
+    "intro": "Interventions carried out by the foundation and its partners.",
+    "sector": "Sector",
+    "province": "Province",
+    "location": "Location",
+    "funders": "Funding",
+    "partners": "Partners",
+    "team": "Team involved",
+    "amount": "Amount",
+    "period": "Period",
+    "ongoing": "ongoing",
+    "featured": "Flagship project",
+    "cases": "{count, plural, one {# case treated} other {# cases treated}}",
+    "beneficiaries": "{count, plural, one {# beneficiary} other {# beneficiaries}}",
+    "sensitized": "{count, plural, one {# person reached} other {# people reached}}",
+    "gallery": "Gallery",
+    "seeProject": "View project",
+    "empty": "No work published yet.",
+    "casesLabel": "cases treated",
+    "results": "Results",
+    "count": "{count, plural, =0 {No projects} one {# project} other {# projects}}"
+  },
+  "products": {
+    "title": "Our products",
+    "intro": "Fish feed, equipment and inputs for fish farming. No online sales: request a quote and we will call you back.",
+    "category": "Category",
+    "brand": "Brand",
+    "categories": {
+      "fish-feed": "Fish feed",
+      "equipment": "Equipment",
+      "inputs": "Inputs"
+    },
+    "availability": {
+      "available": "Available",
+      "on-order": "Made to order",
+      "unavailable": "Unavailable"
+    },
+    "specs": "Specifications",
+    "requestQuote": "Request a quote",
+    "website": "Brand website",
+    "empty": "Our catalogue will be available soon. Contact us for any fish feed, equipment or fish farming input request.",
+    "count": "{count, plural, =0 {No products} one {# product} other {# products}}",
+    "back": "Full catalogue",
+    "quoteIntro": "No online sales: tell us what you need and we will call you back with a quote."
+  },
+  "posts": {
+    "title": "News",
+    "intro": "The latest news from the foundation.",
+    "latest": "Latest news",
+    "by": "By {author}",
+    "categories": {
+      "news": "News",
+      "field": "In the field",
+      "press": "Press release",
+      "event": "Event"
+    },
+    "empty": "No news published yet.",
+    "back": "All news",
+    "published": "Published on {date}"
+  },
+  "team": {
+    "initials": "Initials of {name}",
+    "training": "Training",
+    "experience": "Experience"
+  },
+  "partners": {
+    "types": {
+      "funder": "Funder",
+      "hospital": "Hospital",
+      "partner": "Partner"
+    }
+  },
+  "about": {
+    "mapTitle": "Where we work",
+    "mapIntro": "Provinces where the foundation works.",
+    "mapLegendActive": "Province where we work",
+    "mapLegendOther": "Other province",
+    "mapSource": "Boundaries: geoBoundaries, based on OpenStreetMap (© OpenStreetMap contributors, ODbL licence), simplified."
+  },
+  "contact": {
+    "details": "Contact details",
+    "whatsapp": "Chat on WhatsApp",
+    "map": "View on OpenStreetMap",
+    "formTitle": "Request a call back",
+    "formSoon": "Our call-back form is coming soon. In the meantime, call us or message us on WhatsApp."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist or has moved.",
+    "back": "Back to home"
   }
 }
