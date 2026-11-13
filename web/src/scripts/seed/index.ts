@@ -117,6 +117,13 @@ async function upsert(payload: Payload, collection: CollectionSlug, doc: SeedDoc
   ids.set(key(collection, doc.key), id)
 }
 
+/** L'URL publique répond-elle ? (paramètre aléatoire : le CDN Supabase garde les 404 en cache) */
+const isOnline = (url: string) =>
+  fetch(`${url}?v=${Date.now()}`, { method: 'HEAD' }).then(
+    (r) => r.ok,
+    () => false,
+  )
+
 async function seedMedia(payload: Payload, counts: Counts) {
   for (const m of MEDIA) {
     const filename = m.file.replace(/\.[a-z]+$/i, '.webp')
@@ -127,7 +134,18 @@ async function seedMedia(payload: Payload, counts: Counts) {
       depth: 0,
       overrideAccess: true,
     })
-    let id = found.docs[0]?.id
+    let id: number | undefined = found.docs[0]?.id
+    // Fiche présente mais fichier absent du bucket (supprimé à la main, bucket recréé…) :
+    // on recrée la fiche. On la retire directement en base (`db.deleteOne`, sans hooks) :
+    // `payload.delete` efface aussi les fichiers du bucket, en différé, ce qui supprimerait
+    // le fichier renvoyé juste après sous le même nom. Les références (projets, pages…) sont
+    // reposées par la suite du seed.
+    const url = found.docs[0]?.url
+    if (id !== undefined && url && !(await isOnline(url))) {
+      payload.logger.warn(`Média ${filename} : fichier absent du stockage, fiche recréée.`)
+      await payload.db.deleteOne({ collection: 'media', where: { id: { equals: id } } })
+      id = undefined
+    }
     if (id === undefined) {
       const created = await payload.create({
         collection: 'media',
@@ -139,6 +157,8 @@ async function seedMedia(payload: Payload, counts: Counts) {
       })
       id = created.id
       counts.created++
+      if (created.url && !(await isOnline(created.url)))
+        throw new Error(`Média ${filename} : le fichier n'est pas accessible après l'envoi.`)
     } else {
       await payload.update({
         collection: 'media',

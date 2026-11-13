@@ -105,6 +105,23 @@ export const Sectors: CollectionConfig = publicCollection({
       ],
     },
     {
+      name: 'teamGroups',
+      label: 'Équipe à afficher',
+      type: 'select',
+      hasMany: true,
+      options: [
+        { label: 'Direction', value: 'direction' },
+        { label: 'Chirurgiens', value: 'surgeons' },
+        { label: 'Équipe médicale', value: 'medical' },
+        { label: 'Administration', value: 'administration' },
+        { label: 'Autres', value: 'other' },
+      ],
+      admin: {
+        description:
+          'Groupes de l’équipe présentés sur la page du secteur (ex. Chirurgiens pour la Santé).',
+      },
+    },
+    {
       name: 'callout',
       label: 'Appel au soutien',
       type: 'group',

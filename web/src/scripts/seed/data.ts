@@ -404,6 +404,7 @@ export const SECTORS: SeedDoc[] = [
           ),
         },
       ],
+      teamGroups: ['surgeons'],
       callout: {
         title: t('Soutenir la prise en charge des fistules', 'Support fistula care'),
         text: t(
@@ -908,34 +909,7 @@ export const PAGES: SeedDoc[] = [
           ),
         },
         {
-          blockType: 'content',
-          heading: t('Coordonnées', 'Contact details'),
-          content: richT(
-            [
-              [
-                'p',
-                '**Siège** : N° 70, Av. de la Gombe, Q. Batetela, Commune de la Gombe, Kinshasa, RD Congo',
-              ],
-              [
-                'p',
-                '**Antenne** : Kasangulu, Kongo Central (bâtiment administratif du territoire de Kasangulu)',
-              ],
-              ['p', '**Téléphone et WhatsApp** : +243 904 947 476'],
-              ['p', '**E-mail** : contact@fondationstarkhold.org'],
-            ],
-            [
-              [
-                'p',
-                '**Head office**: No. 70, Avenue de la Gombe, Batetela district, Gombe commune, Kinshasa, DR Congo',
-              ],
-              [
-                'p',
-                '**Branch office**: Kasangulu, Kongo Central (Kasangulu territory administrative building)',
-              ],
-              ['p', '**Phone and WhatsApp**: +243 904 947 476'],
-              ['p', '**Email**: contact@fondationstarkhold.org'],
-            ],
-          ),
+          blockType: 'contactInfo',
         },
       ],
     },
@@ -976,11 +950,6 @@ export const PAGES: SeedDoc[] = [
                   '**Antenne** : Kasangulu, Kongo Central (bâtiment administratif du territoire de Kasangulu).',
                 ],
               ],
-              ['h', 'Zones d’intervention'],
-              [
-                'p',
-                'Kwango, Kwilu, Maï-Ndombe, Sankuru, Kasaï, Kasaï Central, Kasaï Oriental, Lualaba, Tshopo et Kongo Central.',
-              ],
             ],
             [
               [
@@ -1000,13 +969,13 @@ export const PAGES: SeedDoc[] = [
                   '**Branch office**: Kasangulu, Kongo Central (Kasangulu territory administrative building).',
                 ],
               ],
-              ['h', 'Where we work'],
-              [
-                'p',
-                'Kwango, Kwilu, Mai-Ndombe, Sankuru, Kasai, Kasai Central, Kasai Oriental, Lualaba, Tshopo and Kongo Central.',
-              ],
             ],
           ),
+        },
+        {
+          blockType: 'interventionMap',
+          eyebrow: t('Zones d’intervention', 'Where we work'),
+          heading: t('10 provinces d’intervention', '10 provinces'),
         },
         {
           blockType: 'keyFigures',
@@ -1104,6 +1073,10 @@ export const PAGES: SeedDoc[] = [
           heading: t('Là où nous agissons', 'Where we work'),
         },
         {
+          blockType: 'featuredProject',
+          eyebrow: t('Projet phare', 'Flagship project'),
+        },
+        {
           blockType: 'projectsGrid',
           eyebrow: t('Réalisations', 'Our work'),
           heading: t('Nos interventions en santé', 'Our health interventions'),
@@ -1124,6 +1097,11 @@ export const PAGES: SeedDoc[] = [
           heading: t('Ils financent ou accueillent nos actions', 'They fund or host our work'),
         },
         {
+          blockType: 'latestPosts',
+          eyebrow: t('Actualités', 'News'),
+          limit: 3,
+        },
+        {
           blockType: 'cta',
           heading: t('Soutenir la prise en charge des fistules', 'Support fistula care'),
           text: t(
@@ -1132,6 +1110,152 @@ export const PAGES: SeedDoc[] = [
           ),
           tone: 'dark',
           links: [toPage(contactLabel, 'contact', 'primary')],
+        },
+      ],
+    },
+  },
+  // Pages légales : structure posée, informations manquantes signalées [À FOURNIR].
+  {
+    key: 'mentions-legales',
+    status: 'published',
+    slug: t('mentions-legales', 'legal-notice'),
+    data: {
+      title: t('Mentions légales', 'Legal notice'),
+      layout: [
+        {
+          blockType: 'content',
+          heading: t('Éditeur du site', 'Site publisher'),
+          content: richT(
+            [
+              [
+                'p',
+                'Fondation Stark Hold Solutions (FSHS), association sans but lucratif dotée de la personnalité juridique par l’Arrêté n°119/CAB/MIN/J/022.',
+              ],
+              [
+                'p',
+                'Siège : N° 70, Av. de la Gombe, Q. Batetela, Commune de la Gombe, Kinshasa, RD Congo. Téléphone : +243 904 947 476. E-mail : contact@fondationstarkhold.org.',
+              ],
+              [
+                'p',
+                '**Directeur ou directrice de la publication** : [À FOURNIR : nom et fonction]',
+              ],
+            ],
+            [
+              [
+                'p',
+                'Fondation Stark Hold Solutions (FSHS), a non-profit association granted legal personality by Order No. 119/CAB/MIN/J/022.',
+              ],
+              [
+                'p',
+                'Head office: No. 70, Avenue de la Gombe, Batetela district, Gombe commune, Kinshasa, DR Congo. Phone: +243 904 947 476. Email: contact@fondationstarkhold.org.',
+              ],
+              ['p', '**Publication director**: [À FOURNIR : name and role]'],
+            ],
+          ),
+        },
+        {
+          blockType: 'content',
+          heading: t('Hébergement', 'Hosting'),
+          content: richT(
+            [
+              [
+                'p',
+                'Site hébergé par Vercel Inc. ; contenus et médias stockés chez Supabase. [À FOURNIR : coordonnées complètes des hébergeurs, à valider]',
+              ],
+            ],
+            [
+              [
+                'p',
+                'Site hosted by Vercel Inc.; content and media stored with Supabase. [À FOURNIR : full hosting provider details, to be confirmed]',
+              ],
+            ],
+          ),
+        },
+        {
+          blockType: 'content',
+          heading: t('Propriété intellectuelle', 'Intellectual property'),
+          content: richT(
+            [
+              [
+                'p',
+                'Les textes, photos et le logo de la fondation ne peuvent être réutilisés sans autorisation. Carte des provinces : © contributeurs OpenStreetMap (licence ODbL), via geoBoundaries.',
+              ],
+            ],
+            [
+              [
+                'p',
+                'The foundation’s texts, photos and logo may not be reused without permission. Province map: © OpenStreetMap contributors (ODbL licence), via geoBoundaries.',
+              ],
+            ],
+          ),
+        },
+      ],
+    },
+  },
+  {
+    key: 'confidentialite',
+    status: 'published',
+    slug: t('confidentialite', 'privacy'),
+    data: {
+      title: t('Politique de confidentialité', 'Privacy policy'),
+      layout: [
+        {
+          blockType: 'content',
+          heading: t('Données collectées', 'Data we collect'),
+          content: richT(
+            [
+              [
+                'p',
+                'Le site ne vend rien et n’affiche pas de publicité. Les seules données personnelles reçues sont celles que vous nous envoyez (formulaire de rappel, e-mail, WhatsApp) : nom, numéro de téléphone et message. Elles servent uniquement à vous répondre.',
+              ],
+              ['p', '**Responsable du traitement** : [À FOURNIR : nom et fonction]'],
+              ['p', '**Durée de conservation** : [À FOURNIR]'],
+            ],
+            [
+              [
+                'p',
+                'The site sells nothing and shows no advertising. The only personal data we receive is what you send us (call-back form, email, WhatsApp): name, phone number and message. It is used only to reply to you.',
+              ],
+              ['p', '**Data controller**: [À FOURNIR : name and role]'],
+              ['p', '**Retention period**: [À FOURNIR]'],
+            ],
+          ),
+        },
+        {
+          blockType: 'content',
+          heading: t('Cookies', 'Cookies'),
+          content: richT(
+            [
+              [
+                'p',
+                'Un seul cookie technique, NEXT_LOCALE, mémorise la langue choisie (français ou anglais). Aucun cookie de mesure d’audience ni de publicité.',
+              ],
+            ],
+            [
+              [
+                'p',
+                'A single technical cookie, NEXT_LOCALE, remembers your language (French or English). No analytics or advertising cookies.',
+              ],
+            ],
+          ),
+        },
+        {
+          blockType: 'content',
+          heading: t('Vos droits', 'Your rights'),
+          content: richT(
+            [
+              [
+                'p',
+                'Pour consulter, corriger ou supprimer vos données, écrivez à contact@fondationstarkhold.org.',
+              ],
+            ],
+            [
+              [
+                'p',
+                'To access, correct or delete your data, write to contact@fondationstarkhold.org.',
+              ],
+            ],
+          ),
         },
       ],
     },
@@ -1149,6 +1273,7 @@ export const SITE_SETTINGS = {
     'Non-profit association (ASBL) — legal personality: Order No. 119/CAB/MIN/J/022',
   ),
   homePage: ref('pages', 'accueil'),
+  contactPage: ref('pages', 'contact'),
   interventionZones: [
     'kwango',
     'kwilu',
@@ -1231,7 +1356,7 @@ export const FOOTER = {
     },
   ],
   legalLinks: [
-    navCustom(t('Mentions légales', 'Legal notice'), '/mentions-legales', '/legal-notice'),
-    navCustom(t('Confidentialité', 'Privacy'), '/confidentialite', '/privacy'),
+    navPage(t('Mentions légales', 'Legal notice'), 'mentions-legales'),
+    navPage(t('Confidentialité', 'Privacy'), 'confidentialite'),
   ],
 }

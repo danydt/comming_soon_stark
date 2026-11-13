@@ -268,15 +268,69 @@ export const FAQBlock: Block = {
   ],
 }
 
+export const FeaturedProjectBlock: Block = {
+  slug: 'featuredProject',
+  interfaceName: 'FeaturedProjectBlock',
+  labels: { singular: 'Projet phare', plural: 'Projets phares' },
+  fields: [
+    eyebrow,
+    {
+      name: 'project',
+      label: 'Projet',
+      type: 'relationship',
+      relationTo: 'projects',
+      admin: { description: 'Laisser vide pour afficher le projet coché « Projet phare ».' },
+    },
+  ],
+}
+
+export const LatestPostsBlock: Block = {
+  slug: 'latestPosts',
+  interfaceName: 'LatestPostsBlock',
+  labels: { singular: 'Dernières actualités', plural: 'Dernières actualités' },
+  fields: [
+    eyebrow,
+    heading,
+    {
+      name: 'limit',
+      label: 'Nombre d’actualités',
+      type: 'number',
+      defaultValue: 3,
+      min: 1,
+      max: 6,
+      admin: { description: 'Le bloc ne s’affiche pas tant qu’aucune actualité n’est publiée.' },
+    },
+  ],
+}
+
+export const ContactInfoBlock: Block = {
+  slug: 'contactInfo',
+  interfaceName: 'ContactInfoBlock',
+  labels: { singular: 'Coordonnées et contact', plural: 'Coordonnées et contact' },
+  // Coordonnées, WhatsApp et carte : lus dans « Réglages du site ».
+  fields: [eyebrow, heading, intro],
+}
+
+export const InterventionMapBlock: Block = {
+  slug: 'interventionMap',
+  interfaceName: 'InterventionMapBlock',
+  labels: { singular: 'Carte des zones d’intervention', plural: 'Cartes des zones d’intervention' },
+  fields: [eyebrow, heading, intro],
+}
+
 export const PAGE_BLOCKS: Block[] = [
   HeroBlock,
   RichTextBlock,
   KeyFiguresBlock,
   SectorsGridBlock,
   ProjectsGridBlock,
+  FeaturedProjectBlock,
   TeamBlock,
   PartnersBlock,
   GalleryBlock,
   CallToActionBlock,
   FAQBlock,
+  LatestPostsBlock,
+  ContactInfoBlock,
+  InterventionMapBlock,
 ]

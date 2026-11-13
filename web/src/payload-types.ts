@@ -165,11 +165,15 @@ export interface Page {
         | KeyFiguresBlock
         | SectorsGridBlock
         | ProjectsGridBlock
+        | FeaturedProjectBlock
         | TeamBlock
         | PartnersBlock
         | GalleryBlock
         | CallToActionBlock
         | FAQBlock
+        | LatestPostsBlock
+        | ContactInfoBlock
+        | InterventionMapBlock
       )[]
     | null;
   /**
@@ -379,6 +383,10 @@ export interface Sector {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Groupes de l’équipe présentés sur la page du secteur (ex. Chirurgiens pour la Santé).
+   */
+  teamGroups?: ('direction' | 'surgeons' | 'medical' | 'administration' | 'other')[] | null;
   /**
    * Facultatif : encadré « Soutenez-nous » sur la page du secteur.
    */
@@ -872,6 +880,23 @@ export interface ProjectsGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedProjectBlock".
+ */
+export interface FeaturedProjectBlock {
+  /**
+   * Petit texte en capitales au-dessus du titre (facultatif).
+   */
+  eyebrow?: string | null;
+  /**
+   * Laisser vide pour afficher le projet coché « Projet phare ».
+   */
+  project?: (number | null) | Project;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featuredProject';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TeamBlock".
  */
 export interface TeamBlock {
@@ -984,6 +1009,54 @@ export interface FAQBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestPostsBlock".
+ */
+export interface LatestPostsBlock {
+  /**
+   * Petit texte en capitales au-dessus du titre (facultatif).
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Le bloc ne s’affiche pas tant qu’aucune actualité n’est publiée.
+   */
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'latestPosts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock".
+ */
+export interface ContactInfoBlock {
+  /**
+   * Petit texte en capitales au-dessus du titre (facultatif).
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InterventionMapBlock".
+ */
+export interface InterventionMapBlock {
+  /**
+   * Petit texte en capitales au-dessus du titre (facultatif).
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'interventionMap';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1228,11 +1301,15 @@ export interface PagesSelect<T extends boolean = true> {
         keyFigures?: T | KeyFiguresBlockSelect<T>;
         sectorsGrid?: T | SectorsGridBlockSelect<T>;
         projectsGrid?: T | ProjectsGridBlockSelect<T>;
+        featuredProject?: T | FeaturedProjectBlockSelect<T>;
         team?: T | TeamBlockSelect<T>;
         partners?: T | PartnersBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
+        latestPosts?: T | LatestPostsBlockSelect<T>;
+        contactInfo?: T | ContactInfoBlockSelect<T>;
+        interventionMap?: T | InterventionMapBlockSelect<T>;
       };
   generateSlug?: T;
   slug?: T;
@@ -1341,6 +1418,16 @@ export interface ProjectsGridBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedProjectBlock_select".
+ */
+export interface FeaturedProjectBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  project?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TeamBlock_select".
  */
 export interface TeamBlockSelect<T extends boolean = true> {
@@ -1416,6 +1503,39 @@ export interface FAQBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LatestPostsBlock_select".
+ */
+export interface LatestPostsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock_select".
+ */
+export interface ContactInfoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InterventionMapBlock_select".
+ */
+export interface InterventionMapBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -1471,6 +1591,7 @@ export interface SectorsSelect<T extends boolean = true> {
         text?: T;
         id?: T;
       };
+  teamGroups?: T;
   callout?:
     | T
     | {
@@ -1798,6 +1919,10 @@ export interface SiteSetting {
    */
   legalStatus?: string | null;
   homePage: number | Page;
+  /**
+   * Cible des boutons « Nous contacter » et « Demander un devis » ajoutés automatiquement.
+   */
+  contactPage?: (number | null) | Page;
   interventionZones?:
     | (
         | 'kinshasa'
@@ -1834,6 +1959,14 @@ export interface SiteSetting {
   phone: string;
   email: string;
   headOffice: string;
+  /**
+   * Facultatif. Affiche une carte sur la page Contact.
+   */
+  mapLatitude?: number | null;
+  /**
+   * Relevée sur openstreetmap.org (clic droit → « Afficher l’adresse »).
+   */
+  mapLongitude?: number | null;
   branchOffice?: string | null;
   whatsappNumber: string;
   /**
@@ -1933,10 +2066,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   tagline?: T;
   legalStatus?: T;
   homePage?: T;
+  contactPage?: T;
   interventionZones?: T;
   phone?: T;
   email?: T;
   headOffice?: T;
+  mapLatitude?: T;
+  mapLongitude?: T;
   branchOffice?: T;
   whatsappNumber?: T;
   whatsappMessage?: T;

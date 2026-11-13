@@ -40,6 +40,16 @@ export const SiteSettings: GlobalConfig = {
               required: true,
             },
             {
+              name: 'contactPage',
+              label: 'Page Contact',
+              type: 'relationship',
+              relationTo: 'pages',
+              admin: {
+                description:
+                  'Cible des boutons « Nous contacter » et « Demander un devis » ajoutés automatiquement.',
+              },
+            },
+            {
               name: 'interventionZones',
               label: 'Zones d’intervention',
               type: 'select',
@@ -76,6 +86,34 @@ export const SiteSettings: GlobalConfig = {
               type: 'textarea',
               localized: true,
               required: true,
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'mapLatitude',
+                  label: 'Latitude du siège',
+                  type: 'number',
+                  min: -90,
+                  max: 90,
+                  admin: {
+                    width: '50%',
+                    description: 'Facultatif. Affiche une carte sur la page Contact.',
+                  },
+                },
+                {
+                  name: 'mapLongitude',
+                  label: 'Longitude du siège',
+                  type: 'number',
+                  min: -180,
+                  max: 180,
+                  admin: {
+                    width: '50%',
+                    description:
+                      'Relevée sur openstreetmap.org (clic droit → « Afficher l’adresse »).',
+                  },
+                },
+              ],
             },
             {
               name: 'branchOffice',
