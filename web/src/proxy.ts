@@ -7,5 +7,6 @@ export default createMiddleware(routing)
 
 export const config = {
   // Exclut l'administration et l'API Payload, les fichiers internes de Next/Vercel et les fichiers statiques.
-  matcher: '/((?!api|admin|_next|_vercel|.*\..*).*)',
+  // Antislash doublé : dans une chaîne JS, « \. » devient « . » et le motif exclurait presque tout.
+  matcher: '/((?!api|admin|_next|_vercel|.*\\..*).*)',
 }
