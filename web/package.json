@@ -24,7 +24,8 @@
     "migrate:prod": "cross-env NODE_OPTIONS=--no-deprecation PAYLOAD_MIGRATING=1 NODE_ENV=production payload migrate",
     "seed:admin": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed-admin.ts",
     "check:supabase": "node --env-file-if-exists=.env --experimental-strip-types src/scripts/check-supabase.ts",
-    "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed/index.ts"
+    "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/scripts/seed/index.ts",
+    "db:push": "cross-env NODE_ENV=development PAYLOAD_DB_PUSH=true NODE_OPTIONS=--no-deprecation payload run src/scripts/db-push.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.93.0",
@@ -47,11 +48,13 @@
     "payload": "3.93.0",
     "react": "19.2.9",
     "react-dom": "19.2.9",
+    "server-only": "^0.0.1",
     "sharp": "0.35.4",
     "tailwind-merge": "^3.7.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "1.65.0",
     "@tailwindcss/postcss": "^4.3.5",
     "@testing-library/react": "16.3.0",
