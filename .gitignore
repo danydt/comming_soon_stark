@@ -7,3 +7,6 @@ tools/render/.tmp.html
 .env
 .env.*
 !.env.example
+
+# Données géographiques téléchargées (outillage carte)
+tools/map/.cache/

@@ -9,7 +9,8 @@
     "assets": "node render/render-assets.mjs",
     "test:cs": "playwright test --config coming-soon/playwright.config.mjs",
     "serve:cs": "node coming-soon/serve.mjs",
-    "zip:cs": "node coming-soon/zip.mjs"
+    "zip:cs": "node coming-soon/zip.mjs",
+    "map": "node map/build-map.mjs"
   },
   "devDependencies": {
     "@fontsource/inter": "^5.3.0",
