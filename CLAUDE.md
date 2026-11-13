@@ -38,7 +38,7 @@ dist/                      archives générées (ignoré par git)
 
 ## Commandes du site (depuis `web/`)
 
-`pnpm dev` · `pnpm build` · `pnpm lint` · `pnpm format` · `pnpm typecheck` · `pnpm test:unit` (Vitest) · `pnpm test:e2e` (Playwright, .env requis) · `pnpm generate:types` · `pnpm generate:importmap` · `pnpm migrate:create <nom>` · `pnpm migrate:prod` (pooler session 5432) · `pnpm seed:admin` · `pnpm seed` (contenu initial, idempotent, ~5 min) · `pnpm check:supabase`. Détails : `web/README.md`.
+`pnpm dev` · `pnpm build` · `pnpm lint` · `pnpm format` · `pnpm typecheck` · `pnpm test:unit` (Vitest) · `pnpm test:e2e` (Playwright, .env requis) · `pnpm generate:types` · `pnpm generate:importmap` · `pnpm migrate:create <nom>` · `pnpm migrate:prod` (pooler session 5432) · `pnpm seed:admin` · `pnpm seed` (contenu initial, idempotent, ~5 min) · `pnpm db:push` (après un changement de modèle) · `pnpm check:supabase`. Détails : `web/README.md`.
 
 ## Commandes de la page de lancement (depuis `tools/`)
 
@@ -51,6 +51,7 @@ dist/                      archives générées (ignoré par git)
 | `pnpm fonts` | Copie les woff2 Fontsource dans `coming-soon/assets/fonts` |
 | `pnpm assets` | Rend favicons PNG (32/180/512) et `og-default.png` (1200×630) |
 | `pnpm zip:cs` | Construit `dist/coming-soon.zip` à extraire à la racine web LWS |
+| `pnpm map` | Régénère la carte SVG des provinces (`web/src/components/site/drc-map-data.ts`) |
 
 Lighthouse : `CHROME_PATH=".../chrome.exe" npx lighthouse http://localhost:4173/ --form-factor=mobile --throttling.cpuSlowdownMultiplier=1`. Voir la décision D6 plus bas.
 
@@ -99,3 +100,10 @@ Polices : Roboto Slab 800 (titres), Josefin Sans 300 en capitales et `letter-spa
 - **D21 — Slugs.** `slugField` de Payload (marqué « expérimental ») avec `localized: true`, notre `slugify` sans accents et l'index unique désactivé : l'unicité est vérifiée **par langue** par validation (`src/fields/slug.ts`), ce qui autorise `contact` en FR et en EN. Payload ne valide pas les brouillons : deux brouillons peuvent partager un slug, mais la publication du second est refusée.
 - **D22 — Montants des projets.** Groupe `amount` protégé par un accès en lecture au niveau du champ (`amountVisible`) : l'API publique ne renvoie le montant que si « Afficher le montant » est coché. Montants des projets santé 6 à 11 affichés (validé par le client) ; hors périmètre et Fistula Foundation : non affichés / absents.
 - **D23 — Seed.** `pnpm seed` (`src/scripts/seed`) : clé de rapprochement = slug FR (médias : nom de fichier), écriture FR puis EN en reprenant les `id` des lignes de tableaux et de blocs (sinon l'écriture EN recréerait les lignes et viderait le FR). `payload run` quitte au chargement du module : le seed attend `main()` au niveau du module. Provinces des projets santé déduites des lieux, à confirmer par le client.
+- **D24 — Adresses localisées.** `pathnames` next-intl : dossiers `app/` en français (`/secteurs`, `/realisations`, `/produits`, `/actualites`), réécrits en anglais (`/sectors`, `/projects`, `/products`, `/news`). Slugs traduits par contenu ; le sélecteur FR | EN et le hreflang pointent vers le slug de l'autre langue (`detailAlternates`, `src/lib/page.ts`). La page d'accueil n'a qu'une adresse (`/fr/accueil` → `/fr`, 308). Filtres en paramètres neutres (`?sector=`, `?province=`, `?category=`, `?brand=`, `?page=`).
+- **D25 — Matcher du proxy.** Dans une chaîne JS, l'antislash du motif des fichiers doit être doublé (`.*\\..*` dans le code) ; sinon le proxy ne s'exécute que sur `/` (bogue présent depuis la phase 1, corrigé en phase 3).
+- **D26 — Cache de lecture.** `unstable_cache` étiqueté (`src/lib/content.ts`), invalidé par les hooks de D20. Pas de `cacheComponents` (encore expérimental avec Payload).
+- **D27 — Push du schéma.** Via le pooler, le push Drizzle à chaque recompilation du dev prend plusieurs minutes : `PAYLOAD_DB_PUSH=false` dans `.env`, et `pnpm db:push` après une modification du modèle.
+- **D28 — Carte des provinces.** `tools/map/build-map.mjs` (`pnpm map` dans `tools/`) projette et simplifie les contours geoBoundaries gbOpen COD ADM1 (OpenStreetMap / Wambacher, **licence ODbL 1.0**, attribution affichée sous la carte) en SVG statique (`drc-map-data.ts`, ~34 Ko, aucun JavaScript). Provinces actives = Réglages → Zones d'intervention.
+- **D29 — Page Contact.** Réglages → « Page Contact » : cible des boutons « Nous contacter » et « Demander un devis » (`?produit=<slug>`, repris par le formulaire en phase 4). Carte OpenStreetMap intégrée seulement si latitude et longitude sont saisies ; sinon lien de recherche.
+
