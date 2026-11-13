@@ -31,10 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metadataBase: new URL(serverURL()),
     title: { default: t('siteName'), template: `%s — ${t('siteName')}` },
     description: t('description'),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: { fr: '/fr', en: '/en', 'x-default': '/fr' },
-    },
+    // Canonique et hreflang : posés par chaque page (src/lib/page.ts), avec les slugs traduits.
     openGraph: {
       siteName: t('siteName'),
       locale: locale === 'fr' ? 'fr_FR' : 'en_US',
