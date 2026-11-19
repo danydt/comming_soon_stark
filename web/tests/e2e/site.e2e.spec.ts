@@ -91,7 +91,10 @@ test.describe('carte et contact', () => {
 
   test('le lien WhatsApp contient le message prérempli', async ({ page }) => {
     await page.goto('/fr/contact')
-    const href = await page.getByRole('link', { name: /WhatsApp/ }).first().getAttribute('href')
+    const href = await page
+      .getByRole('link', { name: /WhatsApp/ })
+      .first()
+      .getAttribute('href')
     expect(href).toMatch(/^https:\/\/wa\.me\/243\d+\?text=/)
   })
 })
@@ -117,13 +120,21 @@ test.describe('menu mobile', () => {
 })
 
 test.describe('accessibilité (axe, WCAG A et AA)', () => {
-  for (const url of ['/fr', '/en/sectors/health', '/fr/a-propos', '/fr/contact', '/fr/realisations']) {
+  for (const url of [
+    '/fr',
+    '/en/sectors/health',
+    '/fr/a-propos',
+    '/fr/contact',
+    '/fr/realisations',
+  ]) {
     test(url, async ({ page }) => {
       await page.goto(url)
       const { violations } = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
         .analyze()
-      expect(violations.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([])
+      expect(
+        violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`),
+      ).toEqual([])
     })
   }
 })

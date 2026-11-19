@@ -14,7 +14,8 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'pnpm dev',
-    url: 'http://localhost:3000/fr',
+    // « / » répond tout de suite (redirection du proxy) ; /fr peut être long au premier rendu.
+    url: 'http://localhost:3000/',
     reuseExistingServer: true,
     timeout: 240_000,
   },
