@@ -915,6 +915,54 @@ export const PAGES: SeedDoc[] = [
     },
   },
   {
+    key: 'nous-soutenir',
+    status: 'published',
+    slug: t('nous-soutenir', 'support-us'),
+    data: {
+      title: t('Nous soutenir', 'Support us'),
+      layout: [
+        {
+          blockType: 'hero',
+          eyebrow: t('Nous soutenir', 'Support us'),
+          title: t('Faire un don', 'Make a donation'),
+          text: t(
+            'Pas de paiement en ligne : laissez-nous vos coordonnées, nous vous rappelons pour organiser votre don avec vous.',
+            'No online payment: leave us your details and we will call you back to arrange your donation with you.',
+          ),
+        },
+        {
+          blockType: 'content',
+          heading: t('À quoi servent vos dons', 'What your donations support'),
+          content: richT(
+            [['p', '[À FOURNIR : affectation des dons et exemples concrets d’utilisation]']],
+            [['p', '[À FOURNIR : how donations are used, with concrete examples]']],
+          ),
+        },
+        {
+          blockType: 'donationForm',
+        },
+        {
+          blockType: 'content',
+          heading: t('Autres moyens de donner', 'Other ways to give'),
+          content: richT(
+            [
+              [
+                'p',
+                '[À FOURNIR : coordonnées bancaires (banque, titulaire, numéro de compte) et numéros Mobile Money]',
+              ],
+            ],
+            [
+              [
+                'p',
+                '[À FOURNIR : bank details (bank, account holder, account number) and Mobile Money numbers]',
+              ],
+            ],
+          ),
+        },
+      ],
+    },
+  },
+  {
     key: 'a-propos',
     status: 'published',
     slug: t('a-propos', 'about'),
@@ -1206,7 +1254,7 @@ export const PAGES: SeedDoc[] = [
             [
               [
                 'p',
-                'Le site ne vend rien et n’affiche pas de publicité. Les seules données personnelles reçues sont celles que vous nous envoyez (formulaire de rappel, e-mail, WhatsApp) : nom, numéro de téléphone et message. Elles servent uniquement à vous répondre.',
+                'Le site ne vend rien et n’affiche pas de publicité. Les seules données personnelles reçues sont celles que vous nous envoyez (formulaire de contact, formulaire de don, e-mail, WhatsApp) : nom, téléphone, e-mail, organisation, message et, pour un don, le type de soutien et le montant envisagé. Elles servent uniquement à vous répondre ou à vous rappeler. Pour limiter les envois abusifs, nous conservons une empreinte chiffrée (non réversible) de votre adresse IP, jamais l’adresse elle-même.',
               ],
               ['p', '**Responsable du traitement** : [À FOURNIR : nom et fonction]'],
               ['p', '**Durée de conservation** : [À FOURNIR]'],
@@ -1214,7 +1262,7 @@ export const PAGES: SeedDoc[] = [
             [
               [
                 'p',
-                'The site sells nothing and shows no advertising. The only personal data we receive is what you send us (call-back form, email, WhatsApp): name, phone number and message. It is used only to reply to you.',
+                'The site sells nothing and shows no advertising. The only personal data we receive is what you send us (contact form, donation form, email, WhatsApp): name, phone, email, organisation, message and, for a donation, the type of support and intended amount. It is used only to reply to you or call you back. To limit abuse, we keep an encrypted, non-reversible fingerprint of your IP address, never the address itself.',
               ],
               ['p', '**Data controller**: [À FOURNIR : name and role]'],
               ['p', '**Retention period**: [À FOURNIR]'],
@@ -1274,6 +1322,8 @@ export const SITE_SETTINGS = {
   ),
   homePage: ref('pages', 'accueil'),
   contactPage: ref('pages', 'contact'),
+  donatePage: ref('pages', 'nous-soutenir'),
+  privacyPage: ref('pages', 'confidentialite'),
   interventionZones: [
     'kwango',
     'kwilu',
