@@ -11,7 +11,8 @@
     "serve:cs": "node coming-soon/serve.mjs",
     "zip:cs": "node coming-soon/zip.mjs",
     "map": "node map/build-map.mjs",
-    "captures:3": "node captures/phase-3.mjs"
+    "captures:3": "node captures/phase-3.mjs",
+    "captures:4": "node captures/phase-4.mjs"
   },
   "devDependencies": {
     "@fontsource/inter": "^5.3.0",
