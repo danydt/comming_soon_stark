@@ -44,9 +44,12 @@ function Row({
 export async function ContactDetails({
   locale,
   settings,
+  form,
 }: {
   locale: Locale
   settings: SiteSetting
+  /** Formulaire de contact, affiché à côté des coordonnées. */
+  form?: React.ReactNode
 }) {
   const [t, tf, tc] = await Promise.all([
     getTranslations({ locale, namespace: 'contact' }),
@@ -58,7 +61,7 @@ export async function ContactDetails({
   const hasPoint = settings.mapLatitude != null && settings.mapLongitude != null
 
   return (
-    <div className="grid gap-10 lg:grid-cols-2">
+    <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
       <div>
         <h2 className="text-xl">{t('details')}</h2>
         <ul className="mt-6 space-y-6">
@@ -99,25 +102,17 @@ export async function ContactDetails({
           {t('whatsapp')}
           <span className="sr-only">{tc('newTab')}</span>
         </a>
-      </div>
-
-      <div className="space-y-6">
         {hasPoint && (
           <iframe
             title={t('map')}
             loading="lazy"
-            className="aspect-[4/3] w-full rounded-[var(--radius-card)] border border-line"
+            className="mt-8 aspect-[4/3] w-full rounded-[var(--radius-card)] border border-line"
             src={`https://www.openstreetmap.org/export/embed.html?bbox=${settings.mapLongitude! - 0.01}%2C${settings.mapLatitude! - 0.006}%2C${settings.mapLongitude! + 0.01}%2C${settings.mapLatitude! + 0.006}&layer=mapnik&marker=${settings.mapLatitude}%2C${settings.mapLongitude}`}
           />
         )}
-        <div
-          id="rappel"
-          className="rounded-[var(--radius-card)] border border-dashed border-line bg-surface-warm p-6"
-        >
-          <h2 className="text-xl">{t('formTitle')}</h2>
-          <p className="mt-3 text-text-muted">{t('formSoon')}</p>
-        </div>
       </div>
+
+      <div className="rounded-[var(--radius-card)] border border-line p-6 sm:p-8">{form}</div>
     </div>
   )
 }

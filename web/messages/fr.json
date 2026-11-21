@@ -131,13 +131,110 @@
   "contact": {
     "details": "Coordonnées",
     "whatsapp": "Écrire sur WhatsApp",
-    "map": "Voir sur OpenStreetMap",
-    "formTitle": "Être rappelé",
-    "formSoon": "Le formulaire de rappel arrive bientôt. En attendant, appelez-nous ou écrivez-nous sur WhatsApp."
+    "map": "Voir sur OpenStreetMap"
   },
   "notFound": {
     "title": "Page introuvable",
     "text": "La page demandée n’existe pas ou a été déplacée.",
     "back": "Retour à l’accueil"
+  },
+  "conversion": {
+    "donate": "Faire un don",
+    "chat": "Discuter avec nous",
+    "chatLabel": "Discuter avec nous sur WhatsApp (nouvel onglet)",
+    "quickActions": "Actions rapides"
+  },
+  "forms": {
+    "donation": {
+      "title": "Être rappelé pour mon don",
+      "intro": "Laissez-nous vos coordonnées : un membre de l’équipe vous rappelle, au créneau de votre choix, pour convenir ensemble des modalités de votre don.",
+      "submit": "Être rappelé",
+      "successTitle": "Merci pour votre générosité !",
+      "successText": "Nous vous rappelons rapidement pour organiser votre don."
+    },
+    "contact": {
+      "title": "Écrivez-nous",
+      "intro": "Une question, un projet, une demande de devis ? Nous vous répondons rapidement.",
+      "submit": "Envoyer le message",
+      "successTitle": "Message envoyé",
+      "successText": "Merci, nous vous répondons rapidement.",
+      "quoteFor": "Demande de devis : {product}"
+    },
+    "fields": {
+      "name": "Nom complet",
+      "phone": "Téléphone",
+      "phoneHint": "L’indicatif +243 est ajouté si vous n’en indiquez pas.",
+      "email": "E-mail",
+      "emailAckHint": "Pour recevoir un accusé de réception.",
+      "organization": "Organisation",
+      "subject": "Sujet",
+      "supportType": "Type de soutien",
+      "area": "Domaine à soutenir",
+      "amount": "Montant envisagé",
+      "amountHint": "À titre indicatif, sans engagement.",
+      "currency": "Devise",
+      "timeSlot": "Créneau de rappel préféré",
+      "message": "Message",
+      "consent": "J’accepte que la Fondation Stark Hold Solutions utilise ces informations pour me recontacter.",
+      "privacy": "Politique de confidentialité",
+      "website": "Ne pas remplir ce champ"
+    },
+    "optional": "facultatif",
+    "requiredNote": "Les champs marqués d’un astérisque (*) sont obligatoires.",
+    "choose": "Choisir…",
+    "sending": "Envoi en cours…",
+    "charsLeft": "{count} caractères restants",
+    "sendAnother": "Envoyer une autre demande",
+    "options": {
+      "supportType": {
+        "financial": "Don financier",
+        "inKind": "Don en nature",
+        "partnership": "Partenariat ou mécénat",
+        "other": "Autre"
+      },
+      "area": {
+        "health": "Santé",
+        "agriculture": "Agriculture",
+        "livestock": "Élevage",
+        "fishing": "Pêche & pisciculture",
+        "anywhere": "Là où c’est le plus utile"
+      },
+      "subject": {
+        "health": "Santé",
+        "agriculture": "Agriculture",
+        "livestock": "Élevage",
+        "fishing": "Pêche & pisciculture",
+        "quote": "Produits & devis",
+        "partnership": "Partenariat",
+        "press": "Presse",
+        "other": "Autre"
+      },
+      "timeSlot": {
+        "morning": "Matin (8 h – 12 h)",
+        "afternoon": "Après-midi (12 h – 16 h)",
+        "evening": "Fin de journée (16 h – 19 h)",
+        "any": "N’importe quand"
+      }
+    },
+    "errors": {
+      "required": "Ce champ est obligatoire.",
+      "phone": "Numéro invalide. Exemples : 0812 345 678 ou +33 6 12 34 56 78.",
+      "email": "Adresse e-mail invalide.",
+      "tooLong": "Texte trop long.",
+      "messageShort": "Votre message doit compter au moins 10 caractères.",
+      "consent": "Cochez cette case pour envoyer le formulaire.",
+      "amount": "Montant invalide : chiffres uniquement, par exemple 250.",
+      "invalid": "Merci de corriger les champs signalés.",
+      "rateLimit": "Trop d’envois depuis votre connexion. Réessayez dans une heure, ou appelez-nous.",
+      "tooFast": "Envoi trop rapide. Patientez quelques secondes, puis réessayez.",
+      "server": "Une erreur est survenue. Réessayez, ou contactez-nous par téléphone ou WhatsApp."
+    }
+  },
+  "emails": {
+    "donationAckSubject": "Votre proposition de don — Fondation Stark Hold Solutions",
+    "donationAckBody": "Bonjour {name},\n\nMerci pour votre proposition de soutien. Nous avons bien reçu votre demande et nous vous rappelons rapidement au {phone} pour convenir ensemble des modalités de votre don.\n\nAvec notre gratitude,\nL’équipe de la Fondation Stark Hold Solutions",
+    "contactAckSubject": "Nous avons bien reçu votre message — Fondation Stark Hold Solutions",
+    "contactAckBody": "Bonjour {name},\n\nMerci pour votre message. Nous l’avons bien reçu et nous vous répondons rapidement.\n\nCordialement,\nL’équipe de la Fondation Stark Hold Solutions",
+    "footer": "Ce message a été envoyé automatiquement depuis fondationstarkhold.org. Merci de ne pas y répondre directement."
   }
 }

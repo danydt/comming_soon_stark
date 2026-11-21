@@ -16,6 +16,9 @@ import {
   Section,
   SectionHeading,
 } from '@/components/site/primitives'
+import { ContactForm } from '@/components/forms/ContactForm'
+import { formContext } from '@/components/forms/context'
+import { DonationForm } from '@/components/forms/DonationForm'
 import { ContactDetails } from '@/components/site/ContactDetails'
 import { DrcMap } from '@/components/site/DrcMap'
 import { RichText } from '@/components/site/RichText'
@@ -25,6 +28,7 @@ import {
   getSettings,
   listPartners,
   listPosts,
+  listProducts,
   listProjects,
   listSectors,
   listTeam,
@@ -182,11 +186,39 @@ async function BlockSwitch({ block, ctx }: { block: Block; ctx: Ctx }) {
     case 'latestPosts':
       return <LatestPosts block={block} ctx={ctx} />
     case 'contactInfo': {
-      const settings = await getSettings(ctx.locale)
+      const [settings, form, products] = await Promise.all([
+        getSettings(ctx.locale),
+        formContext(ctx.locale),
+        listProducts(ctx.locale),
+      ])
       return (
         <Section>
           <SectionHeading eyebrow={block.eyebrow} title={block.heading} intro={block.intro} />
-          <ContactDetails locale={ctx.locale} settings={settings} />
+          <ContactDetails
+            locale={ctx.locale}
+            settings={settings}
+            form={
+              <ContactForm
+                {...form}
+                products={products.map((p) => ({ slug: p.slug ?? '', name: p.name }))}
+              />
+            }
+          />
+        </Section>
+      )
+    }
+    case 'donationForm': {
+      const form = await formContext(ctx.locale)
+      return (
+        <Section id="formulaire">
+          <div className="mx-auto max-w-3xl">
+            {(block.heading || block.intro) && (
+              <SectionHeading eyebrow={block.eyebrow} title={block.heading} intro={block.intro} />
+            )}
+            <div className="rounded-[var(--radius-card)] border border-line p-6 sm:p-8">
+              <DonationForm {...form} />
+            </div>
+          </div>
         </Section>
       )
     }

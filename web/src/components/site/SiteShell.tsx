@@ -1,13 +1,14 @@
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { HeartHandshake, Mail, MapPin, Phone } from 'lucide-react'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import type { ReactNode } from 'react'
 
+import { ChatLauncher } from '@/components/chat'
 import { getPathname } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { getFooter, getHeader, getSettings } from '@/lib/content'
-import { resolveLink, type ResolvedLink } from '@/lib/links'
+import { hrefFor, resolveLink, type ResolvedLink } from '@/lib/links'
 import { cn } from '@/lib/utils'
 
 import { LocaleSwitcher, type Alternates } from './LocaleSwitcher'
@@ -47,7 +48,18 @@ export async function SiteShell({
     getSettings(locale),
     homeSlug(locale),
   ])
-  const tf = await getTranslations({ locale, namespace: 'footer' })
+  const [tf, tconv] = await Promise.all([
+    getTranslations({ locale, namespace: 'footer' }),
+    getTranslations({ locale, namespace: 'conversion' }),
+  ])
+
+  // « Faire un don » : page choisie dans Réglages → « Page Nous soutenir ».
+  const donatePage = settings.donatePage
+  const donateHref =
+    donatePage && typeof donatePage === 'object' && donatePage.slug
+      ? hrefFor(locale, 'pages', donatePage.slug, home)
+      : null
+  const onDonatePage = donateHref !== null && currentPath === donateHref
 
   const nav: NavItem[] = (header.items ?? [])
     .map((i) => resolveLink(locale, i.link, home))
@@ -121,6 +133,17 @@ export async function SiteShell({
 
           <div className="flex items-center gap-1">
             <div className="hidden lg:block">{switcher}</div>
+            {donateHref && (
+              <NextLink
+                href={donateHref}
+                aria-current={onDonatePage ? 'page' : undefined}
+                data-cta="donate"
+                className="ml-3 hidden min-h-11 items-center gap-2 rounded-full border-2 border-brand-red bg-brand-red px-5 font-semibold text-white transition-colors hover:border-brand-red-deep hover:bg-brand-red-deep lg:inline-flex"
+              >
+                <HeartHandshake aria-hidden="true" className="size-5" />
+                {tconv('donate')}
+              </NextLink>
+            )}
             <MobileMenu
               items={nav}
               switcher={switcher}
@@ -139,7 +162,7 @@ export async function SiteShell({
         {children}
       </main>
 
-      <footer className="bg-brand-black pt-14 pb-10 text-sm text-[#e6e6e6]">
+      <footer className="bg-brand-black pt-14 pb-28 text-sm text-[#e6e6e6] lg:pb-10">
         <Container>
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
             <div>
@@ -258,6 +281,30 @@ export async function SiteShell({
           </div>
         </Container>
       </footer>
+
+      {/* Mobile : barre d'action collante « Faire un don » (en-tête sur ordinateur). */}
+      {donateHref && (
+        <nav
+          aria-label={tconv('quickActions')}
+          className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur lg:hidden"
+        >
+          <NextLink
+            href={donateHref}
+            aria-current={onDonatePage ? 'page' : undefined}
+            data-cta="donate"
+            className="flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-brand-red bg-brand-red px-5 font-semibold text-white hover:border-brand-red-deep hover:bg-brand-red-deep"
+          >
+            <HeartHandshake aria-hidden="true" className="size-5" />
+            {tconv('donate')}
+          </NextLink>
+        </nav>
+      )}
+
+      <ChatLauncher
+        locale={locale}
+        settings={settings}
+        labels={{ chat: tconv('chat'), chatLabel: tconv('chatLabel') }}
+      />
     </>
   )
 }

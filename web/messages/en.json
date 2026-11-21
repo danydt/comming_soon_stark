@@ -131,13 +131,110 @@
   "contact": {
     "details": "Contact details",
     "whatsapp": "Chat on WhatsApp",
-    "map": "View on OpenStreetMap",
-    "formTitle": "Request a call back",
-    "formSoon": "Our call-back form is coming soon. In the meantime, call us or message us on WhatsApp."
+    "map": "View on OpenStreetMap"
   },
   "notFound": {
     "title": "Page not found",
     "text": "The page you are looking for does not exist or has moved.",
     "back": "Back to home"
+  },
+  "conversion": {
+    "donate": "Donate",
+    "chat": "Chat with us",
+    "chatLabel": "Chat with us on WhatsApp (new tab)",
+    "quickActions": "Quick actions"
+  },
+  "forms": {
+    "donation": {
+      "title": "Request a call back about my donation",
+      "intro": "Leave us your details: a member of our team will call you back, at a time that suits you, to arrange your donation together.",
+      "submit": "Request a call back",
+      "successTitle": "Thank you for your generosity!",
+      "successText": "We will call you back shortly to arrange your donation."
+    },
+    "contact": {
+      "title": "Write to us",
+      "intro": "A question, a project, a quote request? We will get back to you shortly.",
+      "submit": "Send message",
+      "successTitle": "Message sent",
+      "successText": "Thank you, we will get back to you shortly.",
+      "quoteFor": "Quote request: {product}"
+    },
+    "fields": {
+      "name": "Full name",
+      "phone": "Phone",
+      "phoneHint": "The +243 country code is added if you do not enter one.",
+      "email": "Email",
+      "emailAckHint": "To receive an acknowledgement.",
+      "organization": "Organisation",
+      "subject": "Subject",
+      "supportType": "Type of support",
+      "area": "Area to support",
+      "amount": "Intended amount",
+      "amountHint": "For information only, with no commitment.",
+      "currency": "Currency",
+      "timeSlot": "Preferred call-back time",
+      "message": "Message",
+      "consent": "I agree that Fondation Stark Hold Solutions may use this information to contact me.",
+      "privacy": "Privacy policy",
+      "website": "Leave this field empty"
+    },
+    "optional": "optional",
+    "requiredNote": "Fields marked with an asterisk (*) are required.",
+    "choose": "Choose…",
+    "sending": "Sending…",
+    "charsLeft": "{count} characters left",
+    "sendAnother": "Send another request",
+    "options": {
+      "supportType": {
+        "financial": "Financial donation",
+        "inKind": "In-kind donation",
+        "partnership": "Partnership or sponsorship",
+        "other": "Other"
+      },
+      "area": {
+        "health": "Health",
+        "agriculture": "Agriculture",
+        "livestock": "Livestock",
+        "fishing": "Fishing & fish farming",
+        "anywhere": "Wherever it is most needed"
+      },
+      "subject": {
+        "health": "Health",
+        "agriculture": "Agriculture",
+        "livestock": "Livestock",
+        "fishing": "Fishing & fish farming",
+        "quote": "Products & quotes",
+        "partnership": "Partnership",
+        "press": "Press",
+        "other": "Other"
+      },
+      "timeSlot": {
+        "morning": "Morning (8 am – 12 pm)",
+        "afternoon": "Afternoon (12 – 4 pm)",
+        "evening": "Late afternoon (4 – 7 pm)",
+        "any": "Any time"
+      }
+    },
+    "errors": {
+      "required": "This field is required.",
+      "phone": "Invalid number. Examples: 0812 345 678 or +44 7700 900123.",
+      "email": "Invalid email address.",
+      "tooLong": "Text too long.",
+      "messageShort": "Your message must be at least 10 characters long.",
+      "consent": "Tick this box to send the form.",
+      "amount": "Invalid amount: digits only, for example 250.",
+      "invalid": "Please correct the highlighted fields.",
+      "rateLimit": "Too many submissions from your connection. Try again in an hour, or call us.",
+      "tooFast": "Sent too quickly. Wait a few seconds, then try again.",
+      "server": "Something went wrong. Try again, or contact us by phone or WhatsApp."
+    }
+  },
+  "emails": {
+    "donationAckSubject": "Your donation offer — Fondation Stark Hold Solutions",
+    "donationAckBody": "Hello {name},\n\nThank you for offering your support. We have received your request and will call you back shortly on {phone} to arrange your donation together.\n\nWith our gratitude,\nThe Fondation Stark Hold Solutions team",
+    "contactAckSubject": "We have received your message — Fondation Stark Hold Solutions",
+    "contactAckBody": "Hello {name},\n\nThank you for your message. We have received it and will get back to you shortly.\n\nKind regards,\nThe Fondation Stark Hold Solutions team",
+    "footer": "This message was sent automatically from fondationstarkhold.org. Please do not reply to it directly."
   }
 }
