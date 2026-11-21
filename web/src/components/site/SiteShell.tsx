@@ -85,7 +85,7 @@ export async function SiteShell({
               alt=""
               width={36}
               height={44}
-              priority
+              loading="eager"
               className="h-10 w-auto lg:hidden"
             />
             <Image
@@ -93,7 +93,7 @@ export async function SiteShell({
               alt=""
               width={120}
               height={113}
-              priority
+              loading="eager"
               className="hidden h-14 w-auto lg:block"
             />
           </NextLink>

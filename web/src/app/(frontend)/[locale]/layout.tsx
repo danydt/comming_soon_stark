@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
-import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { hasLocale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { ReactNode } from 'react'
 
@@ -50,7 +50,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} className={fontVariables}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        {/* Pas de NextIntlClientProvider : aucun composant client ne traduit (libellés passés en
+            props), ce qui évite d'envoyer intl-messageformat au navigateur (~10 Ko gzip). */}
+        {children}
       </body>
     </html>
   )

@@ -45,7 +45,8 @@
     "step": "Step {n}",
     "team": "The team",
     "projects": "Work in this sector",
-    "empty": "No sectors published yet."
+    "empty": "No sectors published yet.",
+    "overview": "Overview"
   },
   "projects": {
     "title": "Our work",

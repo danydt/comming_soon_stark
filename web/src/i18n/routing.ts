@@ -12,6 +12,9 @@ export const routing = defineRouting({
   localePrefix: 'always',
   localeDetection: true,
   localeCookie: { name: 'NEXT_LOCALE', maxAge: 60 * 60 * 24 * 365 },
+  // hreflang : posés par chaque page dans ses métadonnées, avec les slugs traduits (D24).
+  // Pas d'en-tête Link en double (son x-default pointerait vers / au lieu de /fr).
+  alternateLinks: false,
   pathnames: {
     '/': '/',
     '/[slug]': '/[slug]',

@@ -197,11 +197,16 @@ export function MediaImage({
     src,
     alt: media.alt ?? '',
     sizes,
-    priority,
+    // Next 16 : `priority` est obsolète ; image principale chargée tout de suite, en priorité.
+    ...(priority ? { loading: 'eager' as const, fetchPriority: 'high' as const } : {}),
     className,
     style: focal ? { objectPosition: focal } : undefined,
   }
-  return fill ? <Image {...common} alt={common.alt} fill /> : <Image {...common} alt={common.alt} width={width} height={height} />
+  return fill ? (
+    <Image {...common} alt={common.alt} fill />
+  ) : (
+    <Image {...common} alt={common.alt} width={width} height={height} />
+  )
 }
 
 /* ---------------------------------------------------------------- Icônes des secteurs */

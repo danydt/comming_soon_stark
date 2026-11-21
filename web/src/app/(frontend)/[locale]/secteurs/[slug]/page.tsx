@@ -111,7 +111,11 @@ export default async function SectorPage({ params }: Props) {
       {(sector.description || sector.keyPoints?.length) && (
         <Section>
           <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
-            <RichText data={sector.description} />
+            <div>
+              {/* Titre de section pour la hiérarchie (les intertitres du texte riche sont des h3). */}
+              <h2 className="sr-only">{t('overview')}</h2>
+              <RichText data={sector.description} />
+            </div>
             {sector.keyPoints?.length ? (
               <aside
                 aria-labelledby="points-cles"

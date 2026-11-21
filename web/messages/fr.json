@@ -45,7 +45,8 @@
     "step": "Étape {n}",
     "team": "L’équipe",
     "projects": "Réalisations dans ce secteur",
-    "empty": "Aucun secteur publié pour le moment."
+    "empty": "Aucun secteur publié pour le moment.",
+    "overview": "Présentation"
   },
   "projects": {
     "title": "Nos réalisations",
