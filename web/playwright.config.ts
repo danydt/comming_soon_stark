@@ -3,6 +3,8 @@ import { defineConfig, devices } from '@playwright/test'
 /** Parcours critiques. Nécessite une base configurée dans .env (pnpm dev est lancé automatiquement). */
 export default defineConfig({
   testDir: './tests/e2e',
+  // Supprime les demandes « E2E … » créées par les tests des formulaires.
+  globalTeardown: './tests/e2e/global-teardown.ts',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   reporter: [['list']],
