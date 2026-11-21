@@ -161,3 +161,10 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Champs de formulaire : le focus (premier champ en erreur) ne doit pas passer sous l'en-tête collant. */
+input,
+select,
+textarea {
+  scroll-margin-top: 7rem;
+}
