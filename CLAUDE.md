@@ -10,7 +10,7 @@ Site bilingue FR/EN d'une ASBL congolaise (RDC). Brief complet : `PROMPT-CLAUDE-
 | 1 | Mise en place Next.js + Payload + Supabase (`web/`) | **Validée** le 12/11/2026 |
 | 2 | Modèle de contenu et seed | **Validée** le 12/11/2026 |
 | 3 | Front-end | **Validée** le 21/11/2026 |
-| 4 | Conversion (rappel, WhatsApp) | À faire |
+| 4 | Conversion (don, contact, WhatsApp) | **Validée** le 21/11/2026 |
 | 5 | SEO, performance, mise en production | À faire |
 
 ## Hébergement
