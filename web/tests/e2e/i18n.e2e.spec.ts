@@ -28,7 +28,9 @@ test.describe('langues et routes', () => {
       'aria-current',
       'true',
     )
-    await page.goto('/')
+    // Laisser la navigation vers /en se terminer (sinon la suivante est interrompue).
+    await page.waitForLoadState('load')
+    await page.goto('/', { waitUntil: 'commit' })
     await expect(page).toHaveURL(/\/en$/)
   })
 

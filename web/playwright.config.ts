@@ -7,6 +7,8 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: [['list']],
   timeout: 60_000,
+  // Serveur de dev : une navigation peut prendre plusieurs secondes (compilation, Supabase).
+  expect: { timeout: 30_000 },
   use: {
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',

@@ -55,10 +55,26 @@ test.describe('pages publiques', () => {
 })
 
 test.describe('filtres et pagination', () => {
-  test('le filtre secteur est un lien et marque l’option active', async ({ page }) => {
-    await page.goto('/fr/realisations?sector=sante')
-    const active = page.locator('a[aria-current="true"]', { hasText: 'Santé' })
-    await expect(active).toHaveCount(1)
+  // Un groupe de filtres n'est affiché que s'il propose au moins deux valeurs
+  // (aujourd'hui, seules des réalisations Santé sont publiées : pas de filtre Secteur).
+  test('le filtre province est un lien, réduit la liste et marque l’option active', async ({
+    page,
+  }) => {
+    await page.goto('/fr/realisations')
+    const total = await page.locator('main article').count()
+    const option = page.locator('main a[href*="province="]').first()
+    const label = (await option.innerText()).trim()
+    await option.click()
+    await expect(page).toHaveURL(/province=/)
+    await expect(page.locator('main a[aria-current="true"]', { hasText: label })).toHaveCount(1)
+    const filtered = await page.locator('main article').count()
+    expect(filtered).toBeGreaterThan(0)
+    expect(filtered).toBeLessThanOrEqual(total)
+  })
+
+  test('une valeur de filtre inconnue est ignorée', async ({ page }) => {
+    const res = await page.goto('/fr/realisations?sector=inconnu&province=nulle-part')
+    expect(res?.status()).toBe(200)
     await expect(page.locator('main article').first()).toBeVisible()
   })
 
@@ -107,7 +123,13 @@ test.describe('menu mobile', () => {
     const button = page.getByRole('button', { name: 'Ouvrir le menu' })
     await button.click()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
-    await expect(page.getByRole('dialog')).toBeVisible()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog).toBeVisible()
+    // Le panneau couvre tout l'écran et ses liens sont visibles (régression : panneau
+    // réduit à la hauteur de l'en-tête à cause de son backdrop-filter).
+    const box = await dialog.boundingBox()
+    expect(box?.height).toBeGreaterThanOrEqual(780)
+    await expect(dialog.getByRole('link', { name: 'Contact' })).toBeInViewport()
     await page.keyboard.press('Escape')
     await expect(page.getByRole('dialog')).toBeHidden()
     await expect(button).toBeFocused()
