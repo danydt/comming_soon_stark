@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { importExportPlugin } from '@payloadcms/plugin-import-export'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { fr } from '@payloadcms/translations/languages/fr'
 import { buildConfig } from 'payload'
@@ -13,8 +14,10 @@ import { Partners, Team } from './collections/Organisation'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Projects } from './collections/Projects'
+import { ContactMessages, DonationRequests } from './collections/Requests'
 import { Sectors } from './collections/Sectors'
 import { Users } from './collections/Users'
+import { isStaff } from './access'
 import { Footer, Header, SiteSettings } from './globals'
 import { emailAdapter } from './lib/email'
 import { databaseURI, readEnv, requireEnv, serverURL } from './lib/env'
@@ -58,7 +61,20 @@ export default buildConfig({
     fallback: true,
   },
 
-  collections: [Pages, Posts, Sectors, Projects, Products, Brands, Team, Partners, Media, Users],
+  collections: [
+    Pages,
+    Posts,
+    Sectors,
+    Projects,
+    Products,
+    Brands,
+    Team,
+    Partners,
+    Media,
+    Users,
+    DonationRequests,
+    ContactMessages,
+  ],
   globals: [SiteSettings, Header, Footer],
   editor: lexicalEditor(),
 
@@ -78,7 +94,29 @@ export default buildConfig({
 
   email: emailAdapter(),
   sharp,
-  plugins: [...storagePlugins()],
+  plugins: [
+    ...storagePlugins(),
+    // Export CSV des demandes (bouton « Exporter » de la liste). Téléchargement direct,
+    // sans enregistrement de fichier ni file de tâches (pas de stockage persistant sur Vercel).
+    importExportPlugin({
+      collections: (['donation-requests', 'contact-messages'] as const).map((slug) => ({
+        slug,
+        import: false,
+        export: { format: 'csv' as const, disableSave: true, disableJobsQueue: true },
+      })),
+      overrideExportCollection: ({ collection }) => ({
+        ...collection,
+        admin: { ...collection.admin, group: 'Demandes' },
+        access: {
+          ...collection.access,
+          read: isStaff,
+          create: isStaff,
+          update: isStaff,
+          delete: isStaff,
+        },
+      }),
+    }),
+  ],
 
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

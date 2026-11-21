@@ -77,6 +77,10 @@ export interface Config {
     partners: Partner;
     media: Media;
     users: User;
+    'donation-requests': DonationRequest;
+    'contact-messages': ContactMessage;
+    exports: Export;
+    imports: Import;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -95,6 +99,10 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'donation-requests': DonationRequestsSelect<false> | DonationRequestsSelect<true>;
+    'contact-messages': ContactMessagesSelect<false> | ContactMessagesSelect<true>;
+    exports: ExportsSelect<false> | ExportsSelect<true>;
+    imports: ImportsSelect<false> | ImportsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -122,6 +130,8 @@ export interface Config {
   user: User;
   jobs: {
     tasks: {
+      createCollectionExport: TaskCreateCollectionExport;
+      createCollectionImport: TaskCreateCollectionImport;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -173,6 +183,7 @@ export interface Page {
         | FAQBlock
         | LatestPostsBlock
         | ContactInfoBlock
+        | DonationFormBlock
         | InterventionMapBlock
       )[]
     | null;
@@ -1045,6 +1056,21 @@ export interface ContactInfoBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonationFormBlock".
+ */
+export interface DonationFormBlock {
+  /**
+   * Petit texte en capitales au-dessus du titre (facultatif).
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'donationForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "InterventionMapBlock".
  */
 export interface InterventionMapBlock {
@@ -1088,6 +1114,139 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * Personnes à rappeler pour organiser leur don (formulaire de la page « Nous soutenir »).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donation-requests".
+ */
+export interface DonationRequest {
+  id: number;
+  name: string;
+  phone: string;
+  email?: string | null;
+  supportType: 'financial' | 'inKind' | 'partnership' | 'other';
+  area?: ('health' | 'agriculture' | 'livestock' | 'fishing' | 'anywhere') | null;
+  amount?: number | null;
+  currency?: ('USD' | 'CDF') | null;
+  timeSlot?: ('morning' | 'afternoon' | 'evening' | 'any') | null;
+  message?: string | null;
+  locale?: ('fr' | 'en') | null;
+  sourcePage?: string | null;
+  consent?: boolean | null;
+  ipHash?: string | null;
+  status: 'new' | 'contacted' | 'closed';
+  assignedTo?: (number | null) | User;
+  /**
+   * Visible uniquement par l’équipe.
+   */
+  internalNote?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Messages du formulaire de la page Contact, dont les demandes de devis.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-messages".
+ */
+export interface ContactMessage {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  organization?: string | null;
+  subject: 'health' | 'agriculture' | 'livestock' | 'fishing' | 'quote' | 'partnership' | 'press' | 'other';
+  product?: (number | null) | Product;
+  message: string;
+  locale?: ('fr' | 'en') | null;
+  sourcePage?: string | null;
+  consent?: boolean | null;
+  ipHash?: string | null;
+  status: 'new' | 'answered' | 'closed';
+  assignedTo?: (number | null) | User;
+  /**
+   * Visible uniquement par l’équipe.
+   */
+  internalNote?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports".
+ */
+export interface Export {
+  id: number;
+  name?: string | null;
+  format: 'csv' | 'json';
+  limit?: number | null;
+  page?: number | null;
+  sort?: string | null;
+  sortOrder?: ('asc' | 'desc') | null;
+  locale?: ('all' | 'fr' | 'en') | null;
+  drafts?: ('yes' | 'no') | null;
+  selectionToUse?: ('currentSelection' | 'currentFilters' | 'all') | null;
+  fields?: string[] | null;
+  collectionSlug: string;
+  where?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports".
+ */
+export interface Import {
+  id: number;
+  collectionSlug: string;
+  importMode?: ('create' | 'update' | 'upsert') | null;
+  matchField?: string | null;
+  status?: ('pending' | 'completed' | 'partial' | 'failed') | null;
+  summary?: {
+    imported?: number | null;
+    updated?: number | null;
+    total?: number | null;
+    issues?: number | null;
+    issueDetails?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1158,7 +1317,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'schedulePublish';
+        taskSlug: 'inline' | 'createCollectionExport' | 'createCollectionImport' | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -1191,7 +1350,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'schedulePublish') | null;
+  taskSlug?: ('inline' | 'createCollectionExport' | 'createCollectionImport' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -1244,6 +1403,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'donation-requests';
+        value: number | DonationRequest;
+      } | null)
+    | ({
+        relationTo: 'contact-messages';
+        value: number | ContactMessage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1309,6 +1476,7 @@ export interface PagesSelect<T extends boolean = true> {
         faq?: T | FAQBlockSelect<T>;
         latestPosts?: T | LatestPostsBlockSelect<T>;
         contactInfo?: T | ContactInfoBlockSelect<T>;
+        donationForm?: T | DonationFormBlockSelect<T>;
         interventionMap?: T | InterventionMapBlockSelect<T>;
       };
   generateSlug?: T;
@@ -1517,6 +1685,17 @@ export interface LatestPostsBlockSelect<T extends boolean = true> {
  * via the `definition` "ContactInfoBlock_select".
  */
 export interface ContactInfoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DonationFormBlock_select".
+ */
+export interface DonationFormBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   intro?: T;
@@ -1836,6 +2015,111 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donation-requests_select".
+ */
+export interface DonationRequestsSelect<T extends boolean = true> {
+  name?: T;
+  phone?: T;
+  email?: T;
+  supportType?: T;
+  area?: T;
+  amount?: T;
+  currency?: T;
+  timeSlot?: T;
+  message?: T;
+  locale?: T;
+  sourcePage?: T;
+  consent?: T;
+  ipHash?: T;
+  status?: T;
+  assignedTo?: T;
+  internalNote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-messages_select".
+ */
+export interface ContactMessagesSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  organization?: T;
+  subject?: T;
+  product?: T;
+  message?: T;
+  locale?: T;
+  sourcePage?: T;
+  consent?: T;
+  ipHash?: T;
+  status?: T;
+  assignedTo?: T;
+  internalNote?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports_select".
+ */
+export interface ExportsSelect<T extends boolean = true> {
+  name?: T;
+  format?: T;
+  limit?: T;
+  page?: T;
+  sort?: T;
+  sortOrder?: T;
+  locale?: T;
+  drafts?: T;
+  selectionToUse?: T;
+  fields?: T;
+  collectionSlug?: T;
+  where?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports_select".
+ */
+export interface ImportsSelect<T extends boolean = true> {
+  collectionSlug?: T;
+  importMode?: T;
+  matchField?: T;
+  status?: T;
+  summary?:
+    | T
+    | {
+        imported?: T;
+        updated?: T;
+        total?: T;
+        issues?: T;
+        issueDetails?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -1923,6 +2207,14 @@ export interface SiteSetting {
    * Cible des boutons « Nous contacter » et « Demander un devis » ajoutés automatiquement.
    */
   contactPage?: (number | null) | Page;
+  /**
+   * Lien affiché sous la case de consentement des formulaires.
+   */
+  privacyPage?: (number | null) | Page;
+  /**
+   * Cible du bouton « Faire un don » affiché sur toutes les pages (en-tête et barre mobile).
+   */
+  donatePage?: (number | null) | Page;
   interventionZones?:
     | (
         | 'kinshasa'
@@ -2067,6 +2359,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   legalStatus?: T;
   homePage?: T;
   contactPage?: T;
+  privacyPage?: T;
+  donatePage?: T;
   interventionZones?: T;
   phone?: T;
   email?: T;
@@ -2146,6 +2440,70 @@ export interface CollectionsWidget {
     [k: string]: unknown;
   };
   width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionExport".
+ */
+export interface TaskCreateCollectionExport {
+  input: {
+    id: string;
+    name: string;
+    batchSize?: number | null;
+    collectionSlug:
+      | 'pages'
+      | 'posts'
+      | 'sectors'
+      | 'projects'
+      | 'products'
+      | 'brands'
+      | 'team'
+      | 'partners'
+      | 'media'
+      | 'users'
+      | 'donation-requests'
+      | 'contact-messages'
+      | 'exports'
+      | 'imports';
+    drafts?: ('yes' | 'no') | null;
+    exportCollection: string;
+    fields?: string[] | null;
+    format: 'csv' | 'json';
+    limit?: number | null;
+    locale?: string | null;
+    maxLimit?: number | null;
+    page?: number | null;
+    sort?: string | null;
+    userCollection?: string | null;
+    userID?: string | null;
+    where?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionImport".
+ */
+export interface TaskCreateCollectionImport {
+  input: {
+    importId: string;
+    importCollection: string;
+    userID?: string | null;
+    userCollection?: string | null;
+    batchSize?: number | null;
+    debug?: boolean | null;
+    defaultVersionStatus?: ('draft' | 'published') | null;
+    maxLimit?: number | null;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

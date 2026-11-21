@@ -50,6 +50,25 @@ export const SiteSettings: GlobalConfig = {
               },
             },
             {
+              name: 'privacyPage',
+              label: 'Page Confidentialité',
+              type: 'relationship',
+              relationTo: 'pages',
+              admin: {
+                description: 'Lien affiché sous la case de consentement des formulaires.',
+              },
+            },
+            {
+              name: 'donatePage',
+              label: 'Page Nous soutenir',
+              type: 'relationship',
+              relationTo: 'pages',
+              admin: {
+                description:
+                  'Cible du bouton « Faire un don » affiché sur toutes les pages (en-tête et barre mobile).',
+              },
+            },
+            {
               name: 'interventionZones',
               label: 'Zones d’intervention',
               type: 'select',

@@ -307,7 +307,16 @@ export const ContactInfoBlock: Block = {
   slug: 'contactInfo',
   interfaceName: 'ContactInfoBlock',
   labels: { singular: 'Coordonnées et contact', plural: 'Coordonnées et contact' },
-  // Coordonnées, WhatsApp et carte : lus dans « Réglages du site ».
+  // Coordonnées, WhatsApp et carte : lus dans « Réglages du site ». Formulaire de contact à côté.
+  fields: [eyebrow, heading, intro],
+}
+
+export const DonationFormBlock: Block = {
+  slug: 'donationForm',
+  interfaceName: 'DonationFormBlock',
+  labels: { singular: 'Formulaire de don (rappel)', plural: 'Formulaires de don (rappel)' },
+  // Les personnes laissent leurs coordonnées ; l'équipe les rappelle pour organiser le don
+  // (pas de paiement en ligne). Les demandes arrivent dans « Demandes de don ».
   fields: [eyebrow, heading, intro],
 }
 
@@ -332,5 +341,6 @@ export const PAGE_BLOCKS: Block[] = [
   FAQBlock,
   LatestPostsBlock,
   ContactInfoBlock,
+  DonationFormBlock,
   InterventionMapBlock,
 ]
